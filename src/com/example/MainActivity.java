@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
     TextView distanceView;
     TextView lapTimeView;
     TextView totalTimeView;
+    ImageView arrow;
+
+    Boolean right = true;
 
     // handler to receive messages from the background thread
     Handler handler = new Handler() {
@@ -29,6 +35,18 @@ public class MainActivity extends Activity {
             distanceView.setText(distance);
             lapTimeView.setText(lapTime);
             totalTimeView.setText(totalTime);
+
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("arrowRight", R.drawable.arrow);
+            map.put("arrowLeft", R.drawable.arrow_left);
+
+            if (right) {
+                arrow.setImageResource(map.get("arrowRight"));
+                right = false;
+            } else {
+                arrow.setImageResource(map.get("arrowLeft"));
+                right = true;
+            }
         }
     };
 
@@ -39,6 +57,7 @@ public class MainActivity extends Activity {
         distanceView = (TextView)findViewById(R.id.distance);
         lapTimeView = (TextView)findViewById(R.id.lapTime);
         totalTimeView = (TextView)findViewById(R.id.totalTime);
+        arrow = (ImageView)findViewById(R.id.imageView);
     }
 
 
