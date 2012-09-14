@@ -16,6 +16,7 @@ public class LapData {
     private String distance;
     private String totalTime;
     private String lapTime;
+    private boolean directionRight;
 
 
     public LapData(String data) {
@@ -35,5 +36,13 @@ public class LapData {
 
     public String getLapTime() {
         return lapTime;
+    }
+
+    public boolean getDirection() {
+        return directionRight;
+    }
+
+    public void setDirection(boolean direction) {
+        this.directionRight = direction;
     }
 }
