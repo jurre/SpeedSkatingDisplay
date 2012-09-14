@@ -15,11 +15,14 @@ puts "server started"
 loop do
  Thread.start(server.accept) do |client|
    puts "client connected"
-   client.puts("oh hai dere")
+   count = 0
     CSV.foreach("KramerOlympics10000.csv") do |row|
-      puts row.join
-    	client.puts(row.join + "\n")
-    	sleep(5)
+    	unless count < 2
+	      puts row.join
+	    	client.puts(row.join + "\n")
+	    	sleep(1)
+	    end
+    	count += 1
     end
    client.close
  end
