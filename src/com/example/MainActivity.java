@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    Socket socket = new Socket("192.168.1.10", 2000);
+                    Socket socket = new Socket("145.37.55.60", 2000);
                     BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     String input;
                     while((input = reader.readLine()) != null) {
