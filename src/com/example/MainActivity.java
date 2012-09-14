@@ -12,15 +12,23 @@ import java.net.Socket;
 
 public class MainActivity extends Activity {
 
-    TextView textView;
+    TextView distanceView;
+    TextView lapTimeView;
+    TextView totalTimeView;
+
     // handler to receive messages from the background thread
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // get the bundle and extract data by key
             LapData data = (LapData)msg.obj;
-            String key = data.getDistance();
-            textView.setText(key);
+            String distance = data.getDistance();
+            String lapTime = data.getLapTime();
+            String totalTime = data.getTotalTime();
+
+            distanceView.setText(distance);
+            lapTimeView.setText(lapTime);
+            totalTimeView.setText(totalTime);
         }
     };
 
@@ -28,8 +36,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        textView = (TextView)findViewById(R.id.view);
-        textView.setText("Distance");
+        distanceView = (TextView)findViewById(R.id.distance);
+        lapTimeView = (TextView)findViewById(R.id.lapTime);
+        totalTimeView = (TextView)findViewById(R.id.totalTime);
     }
 
 

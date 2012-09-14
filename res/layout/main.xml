@@ -1,13 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="+@string/hello"
-            android:id="@+id/view"
-            />
+              android:layout_height="fill_parent"
+              android:orientation="horizontal"
+              android:baselineAligned="false">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical" >
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"/>
+        <TextView
+                android:id="@+id/lapTimeTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.8"
+                android:gravity="top|center"
+                android:text="Ronde"
+                android:textSize="15dp" />
+
+        <TextView
+                android:id="@+id/lapTime"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.33"
+                android:gravity="center"
+                android:text="0.0"
+                android:textSize="50dp"
+                android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:orientation="vertical" >
+
+        <TextView
+                android:id="@+id/distance"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0m"
+                android:textSize="50dp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/totalTimeTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.8"
+                android:gravity="top|center"
+                android:text="Totaal"
+                android:textSize="15dp" />
+
+        <TextView
+                android:id="@+id/totalTime"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.33"
+                android:gravity="center"
+                android:text="0:0.0"
+                android:textSize="50dp"
+                android:textStyle="bold"/>
+
+    </LinearLayout>
 </LinearLayout>
