@@ -34,10 +34,18 @@ public class LapData {
         this.lapTime = parsedData[2];
     }
 
+    /**
+     * Gets the distance the skater has skated up to this lap
+     * @return formatted String containing the distance skated
+     */
     public String getDistance() {
         return distance;
     }
 
+    /**
+     * Gets the total time the skater has
+     * @return
+     */
     public String getTotalTime() {
         return totalTime;
     }
