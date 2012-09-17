@@ -12,16 +12,8 @@
 
         <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="180dp"
+                android:layout_height="400dp"
                 android:id="@+id/imageView" android:src="@drawable/arrow"/>
-        <TextView
-                android:id="@+id/lapTimeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.8"
-                android:gravity="top|center"
-                android:text="Ronde"
-                android:textSize="15dp" android:layout_gravity="center_horizontal"/>
 
         <TextView
                 android:id="@+id/lapTime"
@@ -30,8 +22,8 @@
                 android:layout_weight="1.33"
                 android:gravity="center"
                 android:text="0.0"
-                android:textSize="70dp"
-                android:textStyle="bold" android:layout_marginTop="-18dp"/>
+                android:textSize="150dp"
+                android:textStyle="bold" android:layout_marginTop="-18dp" android:layout_gravity="bottom"/>
 
     </LinearLayout>
 
@@ -48,17 +40,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0m"
-                android:textSize="70dp"
+                android:textSize="150dp"
                 android:textStyle="bold" />
-
-        <TextView
-                android:id="@+id/totalTimeTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.8"
-                android:gravity="top|center"
-                android:text="Totaal"
-                android:textSize="15dp" />
 
         <TextView
                 android:id="@+id/totalTime"
@@ -67,8 +50,8 @@
                 android:layout_weight="1.33"
                 android:gravity="center"
                 android:text="0:0.0"
-                android:textSize="70dp"
-                android:textStyle="bold"/>
+                android:textSize="150dp"
+                android:textStyle="bold" android:layout_gravity="bottom"/>
 
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
