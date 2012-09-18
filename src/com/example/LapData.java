@@ -4,6 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: jurrestender
@@ -16,7 +21,10 @@ public class LapData {
     private String distance;
     private String totalTime;
     private String lapTime;
+
     private boolean directionRight;
+
+    private Date difference;
 
 
     public LapData(String data) {
@@ -44,5 +52,24 @@ public class LapData {
 
     public void setDirection(boolean direction) {
         this.directionRight = direction;
+    }
+
+    public Date getDifference(){
+        return difference;
+    }
+
+    public void setDifference(String otherLapData){
+        Date ownLapDate = null;
+        Date otherSkaterLapDate = null;
+        try {
+
+            DateFormat formatter = new SimpleDateFormat("mm-ss-SS");
+            otherSkaterLapDate = (Date)formatter.parse(otherLapData);
+            ownLapDate = (Date)formatter.parse(getLapTime()) ;
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        this.difference =  new Date(ownLapDate.getTime() - otherSkaterLapDate.getTime());
+
     }
 }

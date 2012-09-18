@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class MainActivity extends Activity {
     TextView distanceView;
     TextView lapTimeView;
     TextView totalTimeView;
+    TextView differenceView;
     ImageView arrow;
 
     Boolean right = true;
@@ -31,10 +33,12 @@ public class MainActivity extends Activity {
             String distance = data.getDistance();
             String lapTime = data.getLapTime();
             String totalTime = data.getTotalTime();
+            Date difference = data.getDifference();
 
             distanceView.setText(distance);
             lapTimeView.setText(lapTime);
             totalTimeView.setText(totalTime);
+            differenceView.setText(difference.toString());
 
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("arrowRight", R.drawable.arrow);
@@ -58,9 +62,8 @@ public class MainActivity extends Activity {
         lapTimeView = (TextView)findViewById(R.id.lapTime);
         totalTimeView = (TextView)findViewById(R.id.totalTime);
         arrow = (ImageView)findViewById(R.id.imageView);
+        differenceView = (TextView)findViewById(R.id.difference);
     }
-
-
 
     protected void onStart() {
         super.onStart();
