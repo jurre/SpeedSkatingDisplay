@@ -33,12 +33,12 @@ public class MainActivity extends Activity {
             String distance = data.getDistance();
             String lapTime = data.getLapTime();
             String totalTime = data.getTotalTime();
-            Date difference = data.getDifference();
+            String totaldifference = data.getTotalDifference();
 
             distanceView.setText(distance);
             lapTimeView.setText(lapTime);
             totalTimeView.setText(totalTime);
-            differenceView.setText(difference.toString());
+            differenceView.setText(totaldifference);
 
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("arrowRight", R.drawable.arrow);

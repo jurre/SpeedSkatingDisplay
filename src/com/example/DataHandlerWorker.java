@@ -62,7 +62,7 @@ public class DataHandlerWorker implements Runnable {
             while((input = reader.readLine()) != null) {
                 Message message = new Message();
                 LapData lapData = new LapData(input);
-                lapData.setDifference(skobrevList.get(round).getTotalTime());
+                lapData.setTotalDifference(skobrevList.get(round));
                 message.obj = new LapData(input);
                 handler.sendMessage(message);
                 round++;
