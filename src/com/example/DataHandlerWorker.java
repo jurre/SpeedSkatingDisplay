@@ -24,7 +24,7 @@ public class DataHandlerWorker implements Runnable {
 
     public DataHandlerWorker(Handler handler) {
         this.handler = handler;
-        skobrevList = new LinkedList();
+        skobrevList = new LinkedList<LapData>();
         skobrevList.add(new LapData("400m;35.15;35.1"));
         skobrevList.add(new LapData("800m;1:05.79;35.1"));
         skobrevList.add(new LapData("1200m;1:36.73;35.1"));
