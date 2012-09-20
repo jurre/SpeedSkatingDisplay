@@ -18,3 +18,15 @@ local.properties
 # Project files
 .idea/*
 *.iml
+
+*.res
+
+*.res
+
+junit-4.10.jar
+
+src/.DS_Store
+
+src/com/.DS_Store
+
+out/production/SpeedSkatingDisplay/SpeedSkatingDisplay.apk.res
