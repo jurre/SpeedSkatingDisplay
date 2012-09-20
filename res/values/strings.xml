@@ -10,5 +10,8 @@
     <string name="distanceDefault">0m</string>
     <string name="differenceDefault">+ 0:00.00</string>
     <string name="roundTimeDefault">00.0</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_skater_over_view">SkaterOverView</string>
+    <string name="menu_selectall">Schema</string>
 
 </resources>

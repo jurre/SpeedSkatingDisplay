@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,12 +63,32 @@ public class MainActivity extends Activity {
         arrow = (ImageView)findViewById(R.id.imageView);
         differenceView = (TextView)findViewById(R.id.difference);
         
-        Intent i = new Intent(this, SkaterView.class);
-        startActivityForResult(i, 0);
+        
+        
     }
 
     protected void onStart() {
         super.onStart();
         new Thread(new DataHandlerWorker(handler)).start();
+    }
+    
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_schema:
+                setContentView(R.layout.schema);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
