@@ -1,3 +1,42 @@
+<<<<<<< HEAD
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Project files
+.idea/*
+*.iml
+
+#Eclipse
+.classpath
+.project
+*eclipse*
+
+*.res
+
+*.res
+
+junit-4.10.jar
+
+src/.DS_Store
+
+src/com/.DS_Store
+
+out/production/SpeedSkatingDisplay/SpeedSkatingDisplay.apk.res
+=======
 # built application files
 *.apk
 *.ap_
@@ -30,3 +69,4 @@ src/.DS_Store
 src/com/.DS_Store
 
 out/production/SpeedSkatingDisplay/SpeedSkatingDisplay.apk.res
+>>>>>>> parent of aa01ac5... Update gitignore
