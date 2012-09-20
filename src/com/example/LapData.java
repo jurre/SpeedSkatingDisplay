@@ -1,13 +1,8 @@
 package com.example;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -26,10 +21,11 @@ public class LapData {
     private String lapTime;
     private String lapDifference;
     private String totalDifference;
+    private int roundNumber; 
 
     private boolean directionRight;
 
-    private Date difference;
+    private Schedule schedule;
 
 
     public LapData(String data) {
@@ -37,6 +33,15 @@ public class LapData {
         this.distance = parsedData[0];
         this.totalTime = parsedData[1];
         this.lapTime = parsedData[2];
+    }
+    
+    public LapData(String data, Schedule schedule, int roundNumber) {
+        String[] parsedData = data.split(";");
+        this.distance = parsedData[0];
+        this.totalTime = parsedData[1];
+        this.lapTime = parsedData[2];
+        this.roundNumber = roundNumber;
+        this.schedule = schedule; 
     }
 
     public String getDistance() {
@@ -67,16 +72,21 @@ public class LapData {
         return totalDifference;
     }
 
-    public void setLapDifference(LapData otherLapData) {
-        lapDifference = getTimeDifference(getLapTime(), otherLapData.getLapTime());
+    public void setLapDifference() {
+        lapDifference = getTimeDifference(getLapTime(), schedule.getRound(roundNumber).getLapTime());
     }
 
-    public void setTotalDifference(LapData otherLapData) {
-        totalDifference = getTimeDifference(getTotalTime(), otherLapData.getTotalTime());
+    public void setTotalDifference() {
+        totalDifference = getTimeDifference(getTotalTime(), schedule.getRound(roundNumber).getTotalTime());
+    }
+    
+    public int getRoundNumber()
+    {
+    	return roundNumber;
     }
 
     public String getTimeDifference(String time1, String time2){
-        Calendar date1 =Calendar.getInstance();
+    	System.out.println(time1 + "   "+time2);
         Long difference = 0L;
         try {
             Date d1=(Date)formatter.parse(parseTimeString(time1));
@@ -114,8 +124,6 @@ public class LapData {
         else {
             return prefix+Long.toString(m);
         }
-
-
     }
 
     public static String parseTimeString(String time)

@@ -1,15 +1,15 @@
 package com.example;
 
 
-import android.os.Handler;
-import android.os.Message;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+
+import android.os.Handler;
+import android.os.Message;
 
 /**
  * Created with IntelliJ IDEA.
@@ -61,8 +61,8 @@ public class DataHandlerWorker implements Runnable {
             int round = 0;
             while((input = reader.readLine()) != null) {
                 Message message = new Message();
-                LapData lapData = new LapData(input);
-                lapData.setTotalDifference(skobrevList.get(round));
+                LapData lapData = new LapData(input, new Schedule(skobrevList, "hardcoded"), round);
+                lapData.setTotalDifference();
                 message.obj = new LapData(input);
                 handler.sendMessage(message);
                 round++;
