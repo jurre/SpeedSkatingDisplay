@@ -1,19 +1,17 @@
 package Tests;
 
 import com.example.*;
-import junit.framework.TestCase;
 import org.junit.*;
 import static org.junit.Assert.*;
-import org.junit.internal.matchers.StringContains;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Marthyn
- * Date: 9/14/12
- * Time: 10:58 AM
- * To change this template use File | Settings | File Templates.
- */
-public class LapDataTest{
+* Created with IntelliJ IDEA.
+* User: Marthyn
+* Date: 9/14/12
+* Time: 10:58 AM
+* To change this template use File | Settings | File Templates.
+*/
+public class LapDataTest {
 
     @Test
     public void ParseTimeStringTest() {
