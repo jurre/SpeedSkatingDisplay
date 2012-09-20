@@ -1,14 +1,19 @@
 package com.example;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -25,7 +30,7 @@ public class MainActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             // get the bundle and extract data by key
-            LapData data = (LapData)msg.obj;
+            LapData data = (LapData) msg.obj;
             String distance = data.getDistance();
             String lapTime = data.getLapTime();
             String totalTime = data.getTotalTime();
@@ -54,11 +59,11 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        distanceView = (TextView)findViewById(R.id.distance);
-        lapTimeView = (TextView)findViewById(R.id.lapTime);
-        totalTimeView = (TextView)findViewById(R.id.totalTime);
-        arrow = (ImageView)findViewById(R.id.imageView);
-        differenceView = (TextView)findViewById(R.id.difference);
+        distanceView = (TextView) findViewById(R.id.distance);
+        lapTimeView = (TextView) findViewById(R.id.lapTime);
+        totalTimeView = (TextView) findViewById(R.id.totalTime);
+        arrow = (ImageView) findViewById(R.id.imageView);
+        differenceView = (TextView) findViewById(R.id.difference);
     }
 
     protected void onStart() {
