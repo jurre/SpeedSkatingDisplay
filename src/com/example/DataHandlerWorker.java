@@ -59,7 +59,7 @@ public class DataHandlerWorker implements Runnable {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String input;
             int round = 0;
-            while((input = reader.readLine()) != null) {
+            while ((input = reader.readLine()) != null) {
                 Message message = new Message();
                 LapData lapData = new LapData(input);
                 lapData.setTotalDifference(skobrevList.get(round));

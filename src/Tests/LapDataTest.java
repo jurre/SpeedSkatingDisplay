@@ -2,24 +2,25 @@ package Tests;
 
 import com.example.*;
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 /**
-* Created with IntelliJ IDEA.
-* User: Marthyn
-* Date: 9/14/12
-* Time: 10:58 AM
-* To change this template use File | Settings | File Templates.
-*/
+ * Created with IntelliJ IDEA.
+ * User: Marthyn
+ * Date: 9/14/12
+ * Time: 10:58 AM
+ * To change this template use File | Settings | File Templates.
+ */
 public class LapDataTest {
 
     @Test
     public void ParseTimeStringTest() {
 
-        assertEquals("-00:00.123",LapData.parseTimeString("-123"));
-        assertEquals("00:20.567",LapData.parseTimeString("20.567"));
-        assertEquals("14:09.210",LapData.parseTimeString("14:09.21"));
-        assertEquals("00:09.100",LapData.parseTimeString("9.1"));
+        assertEquals("-00:00.123", LapData.parseTimeString("-123"));
+        assertEquals("00:20.567", LapData.parseTimeString("20.567"));
+        assertEquals("14:09.210", LapData.parseTimeString("14:09.21"));
+        assertEquals("00:09.100", LapData.parseTimeString("9.1"));
     }
 
     @Test
@@ -49,7 +50,7 @@ public class LapDataTest {
         assertEquals(l2.getLapDifference(), "-500");
         assertEquals("2.280", l2.getTotalDifference());
         assertEquals(l1.getLapDifference(), "500");
-        assertEquals(l1.getTotalDifference(),"-2.280");
+        assertEquals(l1.getTotalDifference(), "-2.280");
     }
 
 }
