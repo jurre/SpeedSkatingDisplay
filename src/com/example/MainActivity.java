@@ -1,18 +1,15 @@
 package com.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -63,6 +60,9 @@ public class MainActivity extends Activity {
         totalTimeView = (TextView)findViewById(R.id.totalTime);
         arrow = (ImageView)findViewById(R.id.imageView);
         differenceView = (TextView)findViewById(R.id.difference);
+        
+        Intent i = new Intent(this, SkaterView.class);
+        startActivityForResult(i, 0);
     }
 
     protected void onStart() {

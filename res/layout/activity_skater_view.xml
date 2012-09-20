@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
+  <LinearLayout android:layout_weight="1" android:layout_height="fill_parent" android:layout_width="fill_parent">
+
+       <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:contentDescription="@+string/arrow_desc"
+        android:gravity="center"
+        android:src="@drawable/arrow_left" />
+      
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:orientation="vertical" >
+	
+           <TextView
+               android:id="@+id/totalTime"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:text="@string/totalTimeDefault"
+               android:textSize="@dimen/SkaterViewSmall" />
+            
+            <TextView
+                android:id="@+id/roundNumber"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/roundNumberDefault"
+                android:textSize="@dimen/SkaterViewSmall" />
+            
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/distanceDefault"
+                android:textSize="@dimen/SkaterViewSmall" />
+
+      </LinearLayout>
+      
+      </LinearLayout>
+  <LinearLayout android:layout_weight="1" android:layout_height="fill_parent" android:layout_width="fill_parent">
+
+      <TextView
+          android:id="@+id/difference"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@string/differenceDefault"
+          android:textSize="@dimen/SkaterViewBig"
+          android:textStyle="bold" />
+      
+      <TextView
+          android:id="@+id/roundTime"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@string/roundTimeDefault"
+          android:textSize="@dimen/SkaterViewBig"
+          android:textStyle="bold" />
+      
+      </LinearLayout>
+</LinearLayout>
