@@ -16,19 +16,22 @@ import java.util.concurrent.TimeUnit;
 public class LapData {
 
     DateFormat formatter = new SimpleDateFormat("mm:ss.SSS");
-    private String distance;
-    private String totalTime;
-    private String lapTime;
-    private String lapDifference;
-    private String totalDifference;
+    private String distance = "";
+    private String totalTime = "";
+    private String lapTime = "";
+    private String lapDifference = "";
+    private String totalDifference = "";
+    private String roundnumber = "";
 
     private boolean directionRight;
 
     public LapData(String data) {
         String[] parsedData = data.split(";");
-        this.distance = parsedData[0];
-        this.totalTime = parsedData[1];
-        this.lapTime = parsedData[2];
+        this.roundnumber = parsedData[0];
+        this.distance = parsedData[1];
+        this.totalTime = parsedData[2];
+        this.lapTime = parsedData[3];
+
     }
 
     public String getDistance() {
@@ -43,6 +46,9 @@ public class LapData {
         return lapTime;
     }
 
+    public String getRoundnumber(){
+        return roundnumber;
+    }
     public boolean getDirection() {
         return directionRight;
     }

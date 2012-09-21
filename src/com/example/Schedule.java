@@ -18,6 +18,14 @@ public class Schedule {
     	this.lapDatas = lapDatas;
     	this.setName(name);    	
     }
+
+    public String[] getRoundNumbers(){
+        String[] rounds= new String[lapDatas.size()];
+        for(int i = 0; i<lapDatas.size(); i++){
+            rounds[i] = lapDatas.get(i).getRoundnumber();
+        }
+        return rounds;
+    }
     
     public LapData getRound(int roundNumber)
     {

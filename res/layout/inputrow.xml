@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="5dp" >
+
+    <TextView
+            android:id="@+id/roundnumber"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="1"
+
+           >
+    </TextView>
+
+    <EditText
+            android:id="@+id/laptime"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="30.1"
+            android:textSize="15px" >
+    </EditText>
+
+    <TextView
+            android:id="@+id/totaltime"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="1:03.234"
+            >
+    </TextView>
+
+    <TextView
+            android:id="@+id/distance"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="400M"
+            >
+    </TextView>
+
+</LinearLayout>
