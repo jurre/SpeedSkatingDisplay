@@ -19,10 +19,14 @@ public class MobileArrayAdapter extends ArrayAdapter<String> {
         super(context, R.layout.inputrow, roundnumbers);
         this.context = context;
         this.schedule = schedule;
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
+
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

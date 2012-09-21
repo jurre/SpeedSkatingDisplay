@@ -1,6 +1,6 @@
 package com.example;
 import android.view.View;
-import android.app.ListActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.*;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Time: 11:56 AM
  * To change this template use File | Settings | File Templates.
  */
-public class SchemeEntryView extends ListActivity {
+public class SchemeEntryView extends Activity {
 
 
 
@@ -29,11 +29,13 @@ public class SchemeEntryView extends ListActivity {
         Schedule s1 =  new Schedule(list, "test");
 
 
+        setContentView(R.layout.schemeentrylayout);
+        ListView listview = (ListView) findViewById(R.id.list);
+        listview.setAdapter(new MobileArrayAdapter(this, s1, s1.getRoundNumbers()));
 
-        setListAdapter(new MobileArrayAdapter(this, s1, s1.getRoundNumbers()));
 
     }
-
+    /*
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
@@ -41,5 +43,5 @@ public class SchemeEntryView extends ListActivity {
         String selectedValue = (String) getListAdapter().getItem(position);
         Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
 
-    }
+    } */
 }
