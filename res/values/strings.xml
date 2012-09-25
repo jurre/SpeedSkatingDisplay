@@ -13,5 +13,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_skater_over_view">SkaterOverView</string>
     <string name="menu_selectall">Schema</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
 
 </resources>
