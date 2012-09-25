@@ -23,6 +23,11 @@ local.properties
 
 *.res
 
+#Eclipse
+.classpath
+.project
+*eclipse*
+
 junit-4.10.jar
 
 src/.DS_Store
