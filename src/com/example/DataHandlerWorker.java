@@ -55,7 +55,7 @@ public class DataHandlerWorker implements Runnable {
     @Override
     public void run() {
         try {
-            Socket socket = new Socket("192.168.0.108", 2000);
+            Socket socket = new Socket("145.37.95.110", 2000);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String input;
             int round = 0;
