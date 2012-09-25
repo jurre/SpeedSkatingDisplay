@@ -87,6 +87,11 @@ public class MainActivity extends Activity {
             case R.id.menu_schema:
                 setContentView(R.layout.schema);
                 return true;
+            case R.id.menu_add:
+            	//setContentView(R.layout.add);
+            	return true;
+            case R.id.menu_home:
+            	setContentView(R.layout.main);
             default:
                 return super.onOptionsItemSelected(item);
         }
