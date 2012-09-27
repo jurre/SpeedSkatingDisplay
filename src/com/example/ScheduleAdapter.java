@@ -18,9 +18,9 @@ import android.widget.TextView;
  * Time: 11:23 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ScheduleAdapter extends ArrayAdapter<String> {
+public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
-    public ScheduleAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
+    public ScheduleAdapter(Context context, int textViewResourceId, ArrayList<Schedule> items) {
         super(context, textViewResourceId, items);
     }
 
@@ -38,7 +38,7 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
         }
 
         TextView label = (TextView) row.findViewById(R.id.term);
-        label.setText(this.getItem(position));
+        label.setText(this.getItem(position).getName());
 
         row.setOnClickListener((View.OnClickListener) this.getContext());
         row.setTag(position);

@@ -8,6 +8,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -19,13 +20,23 @@ import java.util.Arrays;
  */
 public class ScheduleListActivity extends ListActivity implements View.OnClickListener {
 
-    String[] schedules = {"Goud", "Zilver", "Shani Davis"};
-    ArrayList<String> scheduleList = new ArrayList<String>(Arrays.asList(schedules));
+    SpeedSkatingApplication application;
+    ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedules);
+
+        application = (SpeedSkatingApplication)getApplication();
+
+        Schedule schedule = new Schedule(Schedule.dummyData(), "Skobrev");
+        Schedule schedule2 = new Schedule(Schedule.dummyData(), "Goud");
+
+        scheduleList.add(schedule);
+        scheduleList.add(schedule2);
+        scheduleList.add(application.getSchedule());
         setListAdapter(new ScheduleAdapter(this, android.R.layout.simple_list_item_1, scheduleList));
     }
 
@@ -33,7 +44,7 @@ public class ScheduleListActivity extends ListActivity implements View.OnClickLi
     public void onClick(View v) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("BRO");
-        alertDialog.setMessage("Check it: " + schedules[(Integer) v.getTag()]);
+        alertDialog.setMessage("Check it: " + scheduleList.get((Integer) v.getTag()).getName());
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
@@ -42,3 +53,4 @@ public class ScheduleListActivity extends ListActivity implements View.OnClickLi
         alertDialog.show();
     }
 }
+
