@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+public class LapDataOverviewActivity extends Activity {
 
     TextView distanceView;
     TextView lapTimeView;
@@ -29,17 +29,16 @@ public class MainActivity extends Activity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            // get the bundle and extract data by key
             LapData data = (LapData) msg.obj;
             String distance = data.getDistance();
             String lapTime = data.getLapTime();
             String totalTime = data.getTotalTime();
-            String totaldifference = data.getTotalDifference();
+            String totalDifference = data.getTotalDifference();
 
             distanceView.setText(distance);
             lapTimeView.setText(lapTime);
             totalTimeView.setText(totalTime);
-            differenceView.setText(totaldifference);
+            differenceView.setText(totalDifference);
 
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("arrowRight", R.drawable.arrow);
