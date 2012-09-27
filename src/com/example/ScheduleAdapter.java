@@ -43,7 +43,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         if (this.getItem(position).equals(((SpeedSkatingApplication) context.getApplicationContext()).getSchedule())) {
             label.setText(this.getItem(position).getName() + " (selected)");
         } else {
-            label.setText(this.getItem(position).getName() + " (not selected)");
+            label.setText(this.getItem(position).getName());
         }
 
 

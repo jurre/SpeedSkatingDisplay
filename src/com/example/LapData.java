@@ -70,8 +70,8 @@ public class LapData {
     public String getTimeDifference(String time1, String time2) {
         Long difference = 0L;
         try {
-            Date d1 = (Date) formatter.parse(parseTimeString(time1));
-            Date d2 = (Date) formatter.parse(parseTimeString(time2));
+            Date d1 = formatter.parse(parseTimeString(time1));
+            Date d2 = formatter.parse(parseTimeString(time2));
             difference = d1.getTime() - d2.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -94,7 +94,7 @@ public class LapData {
                     TimeUnit.MILLISECONDS.toSeconds(m) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(m)),
                     TimeUnit.MILLISECONDS.toMillis(m) - TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(m))
             );
-        } else if (m > 1000) {        // wtf?
+        } else if (m > 1000) {
             return String.format("%s%d.%d",
                     prefix,
                     TimeUnit.MILLISECONDS.toSeconds(m),

@@ -1,19 +1,17 @@
 package com.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LapDataOverviewActivity extends Activity {
 
@@ -22,6 +20,7 @@ public class LapDataOverviewActivity extends Activity {
     TextView totalTimeView;
     TextView differenceView;
     ImageView arrow;
+    SpeedSkatingApplication application;
 
     Boolean right = true;
 
@@ -29,7 +28,8 @@ public class LapDataOverviewActivity extends Activity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            LapData data = (LapData) msg.obj;
+            // get the bundle and extract data by key
+            LapData data = (LapData)msg.obj;
             String distance = data.getDistance();
             String lapTime = data.getLapTime();
             String totalTime = data.getTotalTime();
@@ -56,17 +56,44 @@ public class LapDataOverviewActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        application = (SpeedSkatingApplication)getApplication();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        distanceView = (TextView) findViewById(R.id.distance);
-        lapTimeView = (TextView) findViewById(R.id.lapTime);
-        totalTimeView = (TextView) findViewById(R.id.totalTime);
-        arrow = (ImageView) findViewById(R.id.imageView);
-        differenceView = (TextView) findViewById(R.id.difference);
+        setTitle(application.getSchedule().getName());
+        distanceView = (TextView)findViewById(R.id.distance);
+        lapTimeView = (TextView)findViewById(R.id.lapTime);
+        totalTimeView = (TextView)findViewById(R.id.totalTime);
+        arrow = (ImageView)findViewById(R.id.imageView);
+        differenceView = (TextView)findViewById(R.id.difference);
     }
 
     protected void onStart() {
         super.onStart();
-        new Thread(new DataHandlerWorker(handler)).start();
+        new Thread(new DataHandlerWorker(handler, application.getSchedule())).start();
+    }
+    
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_schema:
+                setContentView(R.layout.schedules);
+                return true;
+            case R.id.menu_add:
+            	//setContentView(R.layout.add);
+            	return true;
+            case R.id.menu_home:
+            	setContentView(R.layout.main);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
