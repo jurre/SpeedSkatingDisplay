@@ -10,7 +10,7 @@ import android.app.Application;
  * To change this template use File | Settings | File Templates.
  */
 public class SpeedSkatingApplication extends Application {
-    private Schedule schedule = new Schedule(Schedule.dummyData(), "Default schedule");
+    private Schedule schedule;
 
     public Schedule getSchedule() {
         return schedule;

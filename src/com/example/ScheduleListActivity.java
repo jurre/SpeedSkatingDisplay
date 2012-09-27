@@ -3,6 +3,7 @@ package com.example;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,21 +37,14 @@ public class ScheduleListActivity extends ListActivity implements View.OnClickLi
 
         scheduleList.add(schedule);
         scheduleList.add(schedule2);
-        scheduleList.add(application.getSchedule());
         setListAdapter(new ScheduleAdapter(this, android.R.layout.simple_list_item_1, scheduleList));
     }
 
     @Override
     public void onClick(View v) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("BRO");
-        alertDialog.setMessage("Check it: " + scheduleList.get((Integer) v.getTag()).getName());
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        application.setSchedule(scheduleList.get((Integer) v.getTag()));
 
-            }
-        });
-        alertDialog.show();
+        startActivity(new Intent(ScheduleListActivity.this, LapDataOverviewActivity.class));
     }
 }
 

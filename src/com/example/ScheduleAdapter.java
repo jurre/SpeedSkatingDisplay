@@ -19,9 +19,11 @@ import android.widget.TextView;
  * To change this template use File | Settings | File Templates.
  */
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
+    private Context context;
 
     public ScheduleAdapter(Context context, int textViewResourceId, ArrayList<Schedule> items) {
         super(context, textViewResourceId, items);
+        this.context = context;
     }
 
     @Override
@@ -38,7 +40,12 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
 
         TextView label = (TextView) row.findViewById(R.id.term);
-        label.setText(this.getItem(position).getName());
+        if (this.getItem(position).equals(((SpeedSkatingApplication) context.getApplicationContext()).getSchedule())) {
+            label.setText(this.getItem(position).getName() + " (selected)");
+        } else {
+            label.setText(this.getItem(position).getName() + " (not selected)");
+        }
+
 
         row.setOnClickListener((View.OnClickListener) this.getContext());
         row.setTag(position);
