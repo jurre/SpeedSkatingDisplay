@@ -66,6 +66,10 @@ public class LapData {
         return totalDifference;
     }
 
+    // @ TODO:
+    // this needs to be refactored imo.
+    // there should be a constructor that takes a lapdata as argument
+    // and sets both differences on creation of the object
     public void setLapDifference(LapData otherLapData) {
         lapDifference = getTimeDifference(getLapTime(), otherLapData.getLapTime());
     }
