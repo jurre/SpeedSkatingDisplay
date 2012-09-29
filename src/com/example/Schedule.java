@@ -13,33 +13,31 @@ import java.util.List;
 public class Schedule {
     private List<LapData> lapData;
     private String name;
-    
-    public Schedule (List<LapData> lapData, String name)
-    {
-    	this.lapData = lapData;
-    	this.setName(name);    	
-    }
-    
-    public LapData getRound(int roundNumber)
-    {
-    	return lapData.get(roundNumber);
+
+    public Schedule(List<LapData> lapData, String name) {
+        this.lapData = lapData;
+        this.setName(name);
     }
 
-    public String[] getRoundNumbers(){
-        String[] rounds= new String[lapData.size()];
-        for(int i = 0; i<lapData.size(); i++){
+    public LapData getRound(int roundNumber) {
+        return lapData.get(roundNumber);
+    }
+
+    public String[] getRoundNumbers() {
+        String[] rounds = new String[lapData.size()];
+        for (int i = 0; i < lapData.size(); i++) {
             rounds[i] = lapData.get(i).getRoundNumber();
         }
         return rounds;
     }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     public static List<LapData> dummyData() {
         List<LapData> data = new LinkedList<LapData>();
@@ -71,5 +69,5 @@ public class Schedule {
 
         return data;
     }
-   
+
 }
