@@ -11,6 +11,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Schedule {
+
     private List<LapData> lapData;
     private String name;
 
@@ -37,6 +38,15 @@ public class Schedule {
 
     public String getName() {
         return name;
+    }
+
+    public List<LapData> getLapData() {
+        return lapData;
+    }
+
+
+    public void writeToJSON(){
+        new Thread(new ScheduleWriterWorker(this)).start();
     }
 
     public static List<LapData> dummyData() {
