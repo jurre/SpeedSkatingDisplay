@@ -24,6 +24,7 @@ public class ScheduleWriterWorker implements Runnable {
         this.schedule = schedule;
 
         try {
+            // load the JSON file with schedules
             InputStream inputStream = SpeedSkatingApplication.getAppContext().getResources().openRawResource(R.raw.schedules);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder stringBuilder = new StringBuilder();

@@ -34,24 +34,15 @@ public class ScheduleListLoaderWorker implements Runnable {
         String jsonRep = null;
 
         try {
-            InputStream inputStream = context.getResources().openRawResource(R.raw.schedules);
-            if (inputStream != null) {
-                Writer writer = new StringWriter();
-                char[] buffer = new char[1024];
-                try {
-                    Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                    int n;
-                    while ((n = reader.read(buffer)) != -1) {
-                        writer.write(buffer, 0, n);
-                    }
-                } finally {
-                    inputStream.close();
-                }
-                jsonRep = writer.toString();
+            // load the JSON file with schedules
+            InputStream inputStream = SpeedSkatingApplication.getAppContext().getResources().openRawResource(R.raw.schedules);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
             }
-            else {
-                Log.v("LoadError", "Problem opening the file");
-            }
+            jsonRep = stringBuilder.toString();
         } catch (Throwable throwable) {
             Log.v("LoadError", throwable.toString());
         }
