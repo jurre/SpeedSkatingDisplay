@@ -58,8 +58,8 @@ public class LapDataOverviewActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         application = (SpeedSkatingApplication)getApplication();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        setTitle(application.getSchedule().getName());
+        setContentView(R.layout.lap_data);
+        setTitle("Schema: " + application.getSchedule().getName());
         distanceView = (TextView)findViewById(R.id.distance);
         lapTimeView = (TextView)findViewById(R.id.lapTime);
         totalTimeView = (TextView)findViewById(R.id.totalTime);
@@ -91,7 +91,7 @@ public class LapDataOverviewActivity extends Activity {
             	//setContentView(R.layout.add);
             	return true;
             case R.id.menu_home:
-            	setContentView(R.layout.main);
+            	setContentView(R.layout.lap_data);
             default:
                 return super.onOptionsItemSelected(item);
         }
