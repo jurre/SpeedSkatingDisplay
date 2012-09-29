@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MobileArrayAdapter extends ArrayAdapter<String> {
@@ -36,7 +35,7 @@ public class MobileArrayAdapter extends ArrayAdapter<String> {
         TextView totaltime = (TextView) rowView.findViewById(R.id.totaltime);
         TextView distance = (TextView) rowView.findViewById(R.id.distance);
 
-        roundnumber.setText(schedule.getRound(position).getRoundnumber());
+        roundnumber.setText(schedule.getRound(position).getRoundNumber());
         laptime.setText(schedule.getRound(position).getLapTime());
         totaltime.setText(schedule.getRound(position).getTotalTime());
         distance.setText(schedule.getRound(position).getDistance());

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="SkaterViewBig">102dip</dimen>
+    <dimen name="SkaterViewSmall">32dip</dimen>
+</resources>

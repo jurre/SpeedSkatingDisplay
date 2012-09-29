@@ -1,5 +1,7 @@
 package com.example;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,17 +23,16 @@ public class LapData {
     private String lapTime = "";
     private String lapDifference = "";
     private String totalDifference = "";
-    private String roundnumber = "";
+    private String roundNumber = "";
 
     private boolean directionRight;
 
     public LapData(String data) {
         String[] parsedData = data.split(";");
-        this.roundnumber = parsedData[0];
+        this.roundNumber = parsedData[0];
         this.distance = parsedData[1];
         this.totalTime = parsedData[2];
         this.lapTime = parsedData[3];
-
     }
 
     public String getDistance() {
@@ -46,8 +47,8 @@ public class LapData {
         return lapTime;
     }
 
-    public String getRoundnumber(){
-        return roundnumber;
+    public String getRoundNumber(){
+        return roundNumber;
     }
     public boolean getDirection() {
         return directionRight;
@@ -76,8 +77,8 @@ public class LapData {
     public String getTimeDifference(String time1, String time2) {
         Long difference = 0L;
         try {
-            Date d1 = (Date) formatter.parse(parseTimeString(time1));
-            Date d2 = (Date) formatter.parse(parseTimeString(time2));
+            Date d1 = formatter.parse(parseTimeString(time1));
+            Date d2 = formatter.parse(parseTimeString(time2));
             difference = d1.getTime() - d2.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -100,7 +101,7 @@ public class LapData {
                     TimeUnit.MILLISECONDS.toSeconds(m) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(m)),
                     TimeUnit.MILLISECONDS.toMillis(m) - TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(m))
             );
-        } else if (m > 1000) {        // wtf?
+        } else if (m > 1000) {
             return String.format("%s%d.%d",
                     prefix,
                     TimeUnit.MILLISECONDS.toSeconds(m),

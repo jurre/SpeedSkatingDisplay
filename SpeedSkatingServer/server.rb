@@ -4,7 +4,6 @@ require 'csv'
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
-
 def local_ip
   orig = Socket.do_not_reverse_lookup  
   Socket.do_not_reverse_lookup =true # turn off reverse DNS resolution temporarily
@@ -31,12 +30,12 @@ loop do
    puts "client connected"
    count = 0
     CSV.foreach("KramerOlympics10000.csv") do |row|
-      sleep(2)
       unless count < 2
         puts row.join
         client.puts(row.join + "\n")
       end
       count += 1
+      sleep(2)
     end
    client.close
  end
