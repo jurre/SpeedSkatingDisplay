@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,29 +69,18 @@ public class LapDataOverviewActivity extends Activity {
         super.onStart();
         new Thread(new DataHandlerWorker(handler, application.getSchedule())).start();
     }
-    
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu);
+        SharedMenu.onCreateOptionsMenu(menu, this);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.menu_schema:
-                setContentView(R.layout.schedules);
-                return true;
-            case R.id.menu_add:
-            	//setContentView(R.layout.add);
-            	return true;
-            case R.id.menu_home:
-            	setContentView(R.layout.lap_data);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        SharedMenu.onOptionsItemSelected(item, this);
+        return true;
     }
+
 }

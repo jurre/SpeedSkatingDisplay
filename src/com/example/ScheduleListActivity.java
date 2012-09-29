@@ -1,11 +1,12 @@
 package com.example;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +20,10 @@ import java.util.List;
  * Time: 11:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ScheduleListActivity extends ListActivity implements View.OnClickListener {
+public class ScheduleListActivity extends Activity implements View.OnClickListener {
 
     SpeedSkatingApplication application;
     ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,17 +34,33 @@ public class ScheduleListActivity extends ListActivity implements View.OnClickLi
 
         Schedule schedule = new Schedule(Schedule.dummyData(), "Skobrev");
         Schedule schedule2 = new Schedule(Schedule.dummyData(), "Goud");
-
         scheduleList.add(schedule);
         scheduleList.add(schedule2);
-        setListAdapter(new ScheduleAdapter(this, android.R.layout.simple_list_item_1, scheduleList));
+
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(new ScheduleAdapter(this, android.R.layout.simple_list_item_1, scheduleList));
+
     }
+
 
     @Override
     public void onClick(View v) {
         application.setSchedule(scheduleList.get((Integer) v.getTag()));
 
         startActivity(new Intent(ScheduleListActivity.this, LapDataOverviewActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        SharedMenu.onCreateOptionsMenu(menu, this);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        SharedMenu.onOptionsItemSelected(item, this);
+        return true;
     }
 }
 
