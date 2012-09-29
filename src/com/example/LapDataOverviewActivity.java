@@ -29,7 +29,7 @@ public class LapDataOverviewActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             // get the bundle and extract data by key
-            LapData data = (LapData)msg.obj;
+            LapData data = (LapData) msg.obj;
 
             distanceView.setText(data.getDistance());
             lapTimeView.setText(data.getLapTime());
@@ -53,16 +53,16 @@ public class LapDataOverviewActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        application = (SpeedSkatingApplication)getApplication();
+        application = (SpeedSkatingApplication) getApplication();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lap_data);
         setTitle("Schema: " + application.getSchedule().getName());
-        distanceView = (TextView)findViewById(R.id.distance);
-        roundNumberView = (TextView)findViewById(R.id.roundNumber);
-        lapTimeView = (TextView)findViewById(R.id.lapTime);
-        totalTimeView = (TextView)findViewById(R.id.totalTime);
-        arrow = (ImageView)findViewById(R.id.imageView);
-        differenceView = (TextView)findViewById(R.id.difference);
+        distanceView = (TextView) findViewById(R.id.distance);
+        roundNumberView = (TextView) findViewById(R.id.roundNumber);
+        lapTimeView = (TextView) findViewById(R.id.lapTime);
+        totalTimeView = (TextView) findViewById(R.id.totalTime);
+        arrow = (ImageView) findViewById(R.id.imageView);
+        differenceView = (TextView) findViewById(R.id.difference);
     }
 
     protected void onStart() {
