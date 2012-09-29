@@ -34,12 +34,18 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
     Context context;
     ListView listView;
     ArrayList<Schedule> scheduleArrayList;
+
+    // we're loading the schedules from a JSON file
+    // in a separate thread so it won't clog up the UI
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
+            // we're receiving an arraylist with all the schedules that
+            // are in the schedules.json file
             scheduleArrayList = (ArrayList<Schedule>) msg.obj;
 
+            // update our listView with the schedules we just received
             listView.setAdapter(new ScheduleAdapter(context, android.R.layout.simple_list_item_1, scheduleArrayList));
         }
     };
@@ -52,7 +58,6 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
         application = (SpeedSkatingApplication) getApplication();
         context = this;
         listView = (ListView) findViewById(R.id.list);
-
     }
 
     protected void onStart() {
@@ -60,10 +65,11 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
         new Thread(new ScheduleListLoaderWorker(handler)).start();
     }
 
+    // open the LapDataOverview activity with the selected schedule
+    // to compare against
     @Override
     public void onClick(View v) {
         application.setSchedule(scheduleArrayList.get((Integer) v.getTag()));
-
         startActivity(new Intent(ScheduleListActivity.this, LapDataOverviewActivity.class));
     }
 

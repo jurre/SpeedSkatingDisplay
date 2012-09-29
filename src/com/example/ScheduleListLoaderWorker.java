@@ -48,8 +48,11 @@ public class ScheduleListLoaderWorker implements Runnable {
         try {
             JSONArray jsonArray = new JSONArray(jsonRep);
             List<LapData> lapDataList = new ArrayList<LapData>();
+            // iterate over all schedule objects in the JSON array
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonSchedule = jsonArray.getJSONObject(i);
+
+                // get each schedule's LapData array and create LapData objects from all of them
                 JSONArray jsonLapDataArray = (JSONArray) jsonSchedule.get("lapData");
                 for (int j = 0; j < jsonLapDataArray.length(); j++) {
                     JSONObject jsonLapData = jsonLapDataArray.getJSONObject(j);
@@ -60,12 +63,14 @@ public class ScheduleListLoaderWorker implements Runnable {
                     LapData lapData = new LapData(roundNumber, totalTime, lapTime, distance);
                     lapDataList.add(lapData);
                 }
+                // add the schedules name and append it to the list with schedules
                 Schedule schedule = new Schedule(lapDataList, jsonSchedule.get("name").toString());
                 scheduleArrayList.add(schedule);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // once the list with schedules is complete send it to the activity
         Message message = new Message();
         message.obj = scheduleArrayList;
         handler.sendMessage(message);
