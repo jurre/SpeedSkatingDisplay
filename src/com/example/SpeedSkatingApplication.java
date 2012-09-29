@@ -1,6 +1,7 @@
 package com.example;
 
 import android.app.Application;
+import android.content.Context;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,16 @@ import android.app.Application;
  */
 public class SpeedSkatingApplication extends Application {
     private Schedule schedule;
+    private static Context context;
+
+    public void onCreate(){
+        super.onCreate();
+        SpeedSkatingApplication.context = getApplicationContext();
+    }
+
+    public static Context getAppContext() {
+        return SpeedSkatingApplication.context;
+    }
 
     public Schedule getSchedule() {
         return schedule;
