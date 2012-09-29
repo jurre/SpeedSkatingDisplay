@@ -21,11 +21,9 @@ import java.util.List;
  */
 public class ScheduleListLoaderWorker implements Runnable {
     private Handler handler;
-    private Context context;
 
-    public ScheduleListLoaderWorker(Handler handler, Context context) {
+    public ScheduleListLoaderWorker(Handler handler) {
         this.handler = handler;
-        this.context = context;
     }
 
     @Override

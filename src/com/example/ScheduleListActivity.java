@@ -57,7 +57,7 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
 
     protected void onStart() {
         super.onStart();
-        new Thread(new ScheduleListLoaderWorker(handler, this)).start();
+        new Thread(new ScheduleListLoaderWorker(handler)).start();
     }
 
     @Override
