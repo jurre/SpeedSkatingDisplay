@@ -27,6 +27,13 @@ public class LapData {
 
     private boolean directionRight;
 
+    public LapData(String roundNumber, String totalTime, String lapTime, String distance) {
+        this.roundNumber = roundNumber;
+        this.totalTime = totalTime;
+        this.lapTime = lapTime;
+        this.distance = distance;
+    }
+
     public LapData(String data) {
         String[] parsedData = data.split(";");
         this.roundNumber = parsedData[0];
@@ -64,6 +71,10 @@ public class LapData {
 
     public String getTotalDifference() {
         return totalDifference;
+    }
+
+    public void setLapTime(long lapTime) {
+        this.lapTime = convertMilliSecondsToTime(lapTime * 1000);
     }
 
     // @ TODO:
