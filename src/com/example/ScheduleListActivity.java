@@ -1,13 +1,22 @@
 package com.example;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,31 +30,39 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ScheduleListActivity extends Activity implements View.OnClickListener {
-
     SpeedSkatingApplication application;
-    ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
+    Context context;
+    ListView listView;
+    ArrayList<Schedule> scheduleArrayList;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            scheduleArrayList = (ArrayList<Schedule>) msg.obj;
+
+            listView.setAdapter(new ScheduleAdapter(context, android.R.layout.simple_list_item_1, scheduleArrayList));
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedules);
 
-        application = (SpeedSkatingApplication)getApplication();
-
-        Schedule schedule = new Schedule(Schedule.dummyData(), "Skobrev");
-        Schedule schedule2 = new Schedule(Schedule.dummyData(), "Goud");
-        scheduleList.add(schedule);
-        scheduleList.add(schedule2);
-
-        ListView listView = (ListView) findViewById(R.id.list);
-        listView.setAdapter(new ScheduleAdapter(this, android.R.layout.simple_list_item_1, scheduleList));
+        application = (SpeedSkatingApplication) getApplication();
+        context = this;
+        listView = (ListView) findViewById(R.id.list);
 
     }
 
+    protected void onStart() {
+        super.onStart();
+        new Thread(new ScheduleListLoaderWorker(handler, this)).start();
+    }
 
     @Override
     public void onClick(View v) {
-        application.setSchedule(scheduleList.get((Integer) v.getTag()));
+        application.setSchedule(scheduleArrayList.get((Integer) v.getTag()));
 
         startActivity(new Intent(ScheduleListActivity.this, LapDataOverviewActivity.class));
     }
@@ -62,5 +79,6 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
         SharedMenu.onOptionsItemSelected(item, this);
         return true;
     }
+
 }
 
