@@ -15,6 +15,8 @@ import android.view.MenuItem;
  */
 public class SharedMenu {
 
+    // as a comment, sometimes i feel the compiler ignores me :(
+
     public static boolean onCreateOptionsMenu(Menu menu, Activity activity) {
         MenuInflater menuInflater = activity.getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
