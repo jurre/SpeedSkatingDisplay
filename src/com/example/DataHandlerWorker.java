@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +16,7 @@ import java.util.List;
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DataHandlerWorker implements Runnable {
+public class DataHandlerWorker implements Runnable, DataHandlerInterface {
     private Handler handler;
     private Schedule schedule;
 
