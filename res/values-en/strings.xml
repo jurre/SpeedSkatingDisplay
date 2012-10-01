@@ -7,6 +7,8 @@
     <string name="title_activity_skater_view">SkaterView</string>
     <string name="totalTimeDefault">0:00.00</string>
     <string name="roundNumberDefault">Lap: 0</string>
+    <string name="roundNumberIdentifier">Lap: </string>
+    <string name="distance">Afstand</string>
     <string name="distanceDefault">0m</string>
     <string name="differenceDefault">+ 0:00.00</string>
     <string name="roundTimeDefault">00.0</string>
