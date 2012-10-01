@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Schaatser Scherm</string>
+    <string name="hello_world">Hallo Wereld!</string>
+    <string name="menu_settings">Instellingen</string>
+    <string name="title_activity_skater_view">SchaatserOverzicht</string>
+    <string name="totalTimeDefault">0:00.00</string>
+    <string name="roundNumberDefault">Ronde 0</string>
+    <string name="distanceDefault">0m</string>
+    <string name="differenceDefault">+ 0:00.00</string>
+    <string name="roundTimeDefault">00.0</string>
+    <string name="title_activity_main">MainActiviteit</string>
+    <string name="title_activity_skater_over_view">SchaatserOverzicht</string>
+    <string name="menu_selectall">Schema</string>
+    <string name="title_activity_schedule">RoosterActiviteit</string>
+
+</resources>
