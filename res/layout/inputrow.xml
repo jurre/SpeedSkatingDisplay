@@ -20,7 +20,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="30.1"
-            android:textSize="15px" >
+            android:textSize="15px" android:inputType="numberDecimal">
     </EditText>
 
     <TextView

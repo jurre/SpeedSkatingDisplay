@@ -1,9 +1,10 @@
 package com.example;
 
 
-
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,46 +13,52 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class SchemeEntryAdapter extends ArrayAdapter<String> {
+import java.util.ArrayList;
+
+public class SchemeEntryAdapter extends ArrayAdapter<LapData> {
     private final Context context;
     private SchemeEntryActivity activity;
-    private Schedule schedule;
+    private ArrayList<LapData> items;
 
-    public SchemeEntryAdapter(Context context, Schedule schedule, String[] roundNumbers) {
-        super(context, R.layout.inputrow, roundNumbers);
+    public SchemeEntryAdapter(Context context, int textViewResourceId, ArrayList<LapData> items) {
+        super(context, textViewResourceId, items);
         this.context = context;
-        this.schedule = schedule;
         this.activity = (SchemeEntryActivity) context;
+        this.items = items;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View rowView = layoutInflater.inflate(R.layout.inputrow, parent, false);
-        TextView roundNumber = (TextView) rowView.findViewById(R.id.roundnumber);
-        final EditText lapTime = (EditText) rowView.findViewById(R.id.laptime);
-        TextView totalTime = (TextView) rowView.findViewById(R.id.totaltime);
-        TextView distance = (TextView) rowView.findViewById(R.id.distance);
+        View row = convertView;
 
-        roundNumber.setText(schedule.getRound(position).getRoundNumber());
-        lapTime.setText(schedule.getRound(position).getLapTime());
-        totalTime.setText(schedule.getRound(position).getTotalTime());
-        distance.setText(schedule.getRound(position).getDistance());
+        if (row == null) {
+            LayoutInflater inflater = LayoutInflater.from(this.getContext());
 
-        final int lapDataPosition = position;
+            row = inflater.inflate(R.layout.inputrow, null);
+        }
+
+        TextView roundNumber = (TextView) row.findViewById(R.id.roundnumber);
+        final EditText lapTime = (EditText) row.findViewById(R.id.laptime);
+        TextView totalTime = (TextView) row.findViewById(R.id.totaltime);
+        TextView distance = (TextView) row.findViewById(R.id.distance);
+
+        roundNumber.setText(this.getItem(position).getRoundNumber());
+        lapTime.setText(this.getItem(position).getLapTime());
+        totalTime.setText(this.getItem(position).getTotalTime());
+        distance.setText(this.getItem(position).getDistance());
+
+//        lapTime.addTextChangedListener(new CustomTextWatcher(position));
+
+        final int pos = position;
+
         lapTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.v("position = ", String.valueOf(lapDataPosition));
-                    Log.v("lapTime = ", lapTime.getText().toString());
-                    activity.updateLapTime(lapDataPosition, lapTime.getText().toString());
-                }
+                items.get(pos).setLapTime(((EditText) v).getText().toString().trim());
             }
         });
 
-        return rowView;
+        return row;
     }
 }

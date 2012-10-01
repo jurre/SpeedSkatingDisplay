@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +28,7 @@ public class DataHandlerWorker implements Runnable {
     @Override
     public void run() {
         try {
-            Socket socket = new Socket("192.168.1.10", 2000);
+            Socket socket = new Socket("145.37.58.115", 2000);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String input;
             int round = 0;
@@ -43,7 +41,7 @@ public class DataHandlerWorker implements Runnable {
                 round++;
             }
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
 }
