@@ -1,6 +1,7 @@
 package com.example;
 
-import java.util.LinkedList;
+import android.content.Context;
+
 import java.util.List;
 
 /**
@@ -23,14 +24,6 @@ public class Schedule {
         return lapData.get(roundNumber);
     }
 
-    public String[] getRoundNumbers() {
-        String[] rounds = new String[lapData.size()];
-        for (int i = 0; i < lapData.size(); i++) {
-            rounds[i] = lapData.get(i).getRoundNumber();
-        }
-        return rounds;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -45,6 +38,6 @@ public class Schedule {
 
 
     public void writeToJSON(){
-        new Thread(new ScheduleWriterWorker(this)).start();
+        new Thread(new ScheduleWriterWorker(new Schedule(this.lapData, this.getName()))).start();
     }
 }

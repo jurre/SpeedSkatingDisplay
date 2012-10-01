@@ -1,7 +1,5 @@
 package com.example;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +11,6 @@ import java.util.concurrent.TimeUnit;
  * User: jurrestender
  * Date: 9/14/12
  * Time: 1:06 PM
- * To change this template use File | Settings | File Templates.
  */
 public class LapData {
 
@@ -54,9 +51,10 @@ public class LapData {
         return lapTime;
     }
 
-    public String getRoundNumber(){
+    public String getRoundNumber() {
         return roundNumber;
     }
+
     public boolean getDirection() {
         return directionRight;
     }
@@ -73,8 +71,8 @@ public class LapData {
         return totalDifference;
     }
 
-    public void setLapTime(long lapTime) {
-        this.lapTime = convertMilliSecondsToTime(lapTime * 1000);
+    public void setLapTime(String lapTime) {
+        this.lapTime = lapTime;
     }
 
     // @ TODO:
