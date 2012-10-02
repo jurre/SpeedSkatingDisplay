@@ -28,17 +28,17 @@ public class DataHandlerWorker implements Runnable {
     @Override
     public void run() {
         try {
-            Socket socket = new Socket("145.37.58.115", 2000);
+            Socket socket = new Socket("192.168.1.10", 2000);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String input;
             int round = 0;
             while ((input = reader.readLine()) != null) {
                 Message message = new Message();
                 LapData lapData = new LapData(input);
+                round = Integer.parseInt(lapData.getRoundNumber()) - 1;
                 lapData.setTotalDifference(schedule.getRound(round));
                 message.obj = lapData;
                 handler.sendMessage(message);
-                round++;
             }
         } catch (IOException e) {
             e.printStackTrace();
