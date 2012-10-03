@@ -94,11 +94,13 @@ public class DataHandlerWorker implements Runnable {
                 if (handler != null) {
                     handler.sendMessage(message);
                 }
-                lastlapdata = lapdata;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    //
+                }
             }
-
         }
-
     }
 
 
@@ -152,8 +154,7 @@ public class DataHandlerWorker implements Runnable {
                 while ((input = reader.readLine()) != null) {
                     LapData tempLapData = new LapData(input);
                     System.out.println("OpponentLine received");
-                    while(Integer.parseInt(lapdata.getRoundNumber())>=Integer.parseInt(tempLapData.getRoundNumber()))
-                    {
+                    while (Integer.parseInt(lapdata.getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())) {
                         //wait for myskater to send its lap before calculating the difference.
                     }
                     if (worker.getLapData() != null) {
