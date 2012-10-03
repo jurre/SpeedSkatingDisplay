@@ -1,0 +1,79 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
+    margin: 50px 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+#outer {
+    width: 960px;
+    margin: 0 auto;    
+}
+
+.player {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.player .name {
+    display: inline-block;
+    width: 300px;
+}
+
+.player .score {
+    display: inline-block;
+    width: 300px;
+    text-align: right;
+    color: #777;
+}
+
+.player.selected {
+    background-color: #378073;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    margin-left: -28px;
+    padding-left: 28px;
+}
+
+.player.selected .total-time {
+    color: black;
+}
+
+.details, .none {
+    border-style: dashed none none none;
+    border-color: #ccc;
+    border-width: 1px;
+    padding: 4px 0px;
+    float right;
+}
+
+.none {
+    color: #777;
+}
+
+.inc {
+  cursor: pointer;
+}
+
+.leaderboard { 
+    width: 350px;
+    float: right;
+}
+
+.currentRace {
+    width: 860px;
+    heigth:600px;
+    float: left;
+
+}
+
+.total-time {
+    color: #555;
+    float: right;
+    margin-top: -18px;
+}
