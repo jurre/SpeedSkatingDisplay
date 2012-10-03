@@ -19,8 +19,8 @@ import java.net.Socket;
 public class DataHandlerWorker implements Runnable {
     private Handler handler;
     private Schedule schedule;
-    private LapData lapdata;
-    private LapData lastlapdata;
+    private LapData lapData;
+    private LapData lastLapData;
     private boolean useSchedule;
     private String serverIp;
     private int portMySkater;
@@ -42,8 +42,8 @@ public class DataHandlerWorker implements Runnable {
         initDataRetrievers();
     }
 
-    public synchronized void setLapdata(LapData lapdata) {
-        this.lapdata = lapdata;
+    public synchronized void setLapData(LapData lapData) {
+        this.lapData = lapData;
     }
 
     public void initDataRetrievers() {
@@ -66,7 +66,7 @@ public class DataHandlerWorker implements Runnable {
     }
 
     public LapData getLapData() {
-        return lapdata;
+        return lapData;
     }
 
     public DataHandlerWorker(Handler handler, Schedule schedule) {
@@ -86,11 +86,10 @@ public class DataHandlerWorker implements Runnable {
 
     @Override
     public void run() {
-
         while (true) {
-            if (!lapdata.isEqual(lastlapdata)) {
+            if (!lapData.isEqual(lastLapData)) {
                 Message message = new Message();
-                message.obj = lapdata;
+                message.obj = lapData;
                 if (handler != null) {
                     handler.sendMessage(message);
                 }
@@ -121,9 +120,9 @@ public class DataHandlerWorker implements Runnable {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String input;
                 while ((input = reader.readLine()) != null) {
-                    worker.setLapdata(new LapData(input));
+                    worker.setLapData(new LapData(input));
                     if (useSchedule) {
-                        lapdata.setTotalDifference(schedule.getRound(Integer.parseInt(lapdata.getRoundNumber())));
+                        lapData.setTotalDifference(schedule.getRound(Integer.parseInt(lapData.getRoundNumber())));
                     }
                 }
             } catch (IOException e) {
@@ -154,7 +153,7 @@ public class DataHandlerWorker implements Runnable {
                 while ((input = reader.readLine()) != null) {
                     LapData tempLapData = new LapData(input);
                     System.out.println("OpponentLine received");
-                    while (Integer.parseInt(lapdata.getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())) {
+                    while (Integer.parseInt(lapData.getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())) {
                         //wait for myskater to send its lap before calculating the difference.
                     }
                     if (worker.getLapData() != null) {
