@@ -6,20 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -27,7 +19,6 @@ import java.util.List;
  * User: jurrestender
  * Date: 9/20/12
  * Time: 11:50 AM
- * To change this template use File | Settings | File Templates.
  */
 public class ScheduleListActivity extends Activity implements View.OnClickListener {
     SpeedSkatingApplication application;
@@ -45,8 +36,8 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
             // are in the schedules.json file
             scheduleArrayList = (ArrayList<Schedule>) msg.obj;
 
-            // update our listView with the schedules we just received
             listView.setAdapter(new ScheduleAdapter(context, android.R.layout.simple_list_item_1, scheduleArrayList));
+
         }
     };
 
@@ -62,6 +53,12 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
 
     protected void onStart() {
         super.onStart();
+        // hackidy hack
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Thread(new ScheduleListLoaderWorker(handler)).start();
     }
 

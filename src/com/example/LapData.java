@@ -1,7 +1,5 @@
 package com.example;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +11,6 @@ import java.util.concurrent.TimeUnit;
  * User: jurrestender
  * Date: 9/14/12
  * Time: 1:06 PM
- * To change this template use File | Settings | File Templates.
  */
 public class LapData {
 
@@ -54,9 +51,10 @@ public class LapData {
         return lapTime;
     }
 
-    public String getRoundNumber(){
+    public String getRoundNumber() {
         return roundNumber;
     }
+
     public boolean getDirection() {
         return directionRight;
     }
@@ -73,8 +71,8 @@ public class LapData {
         return totalDifference;
     }
 
-    public void setLapTime(long lapTime) {
-        this.lapTime = convertMilliSecondsToTime(lapTime * 1000);
+    public void setLapTime(String lapTime) {
+        this.lapTime = lapTime;
     }
 
     // @ TODO:
@@ -106,7 +104,7 @@ public class LapData {
         long m = milliseconds;
         if (milliseconds < 0) {
             m = milliseconds - (milliseconds * 2);
-            System.out.println(m);
+
             prefix = "-";
         }
         if (m > 60000) {
@@ -138,7 +136,7 @@ public class LapData {
 
         String minutes = "00";
         String seconds = "00";
-        String milliseconds = "000";
+        String milliseconds = "00";
         String[] split = time.split(":");
         if (split.length == 2) {
             minutes = split[0];
@@ -163,16 +161,30 @@ public class LapData {
             minutes = "0" + minutes;
         }
 
-        switch (milliseconds.length()) {
-            case 1:
-                milliseconds += "00";
-                break;
-            case 2:
-                milliseconds += "0";
-                break;
+        if (milliseconds.length() == 1) {
+            milliseconds += "0";
+        }
+
+        if(milliseconds.length()> 2) {
+            milliseconds = milliseconds.substring(0,2);
         }
 
         return prefix + minutes + ":" + seconds + "." + milliseconds;
+    }
+
+    public boolean isEqual(LapData comparableLapdata) {
+        if(comparableLapdata==null) {
+            return false;
+        }
+        if(this.getDistance().equals(comparableLapdata.getDistance()) &&
+           this.getLapTime().equals(comparableLapdata.getLapTime()) &&
+           this.getRoundNumber().equals(comparableLapdata.getRoundNumber()) &&
+           this.getTotalTime().equals(comparableLapdata.getTotalTime())){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 

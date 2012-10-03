@@ -1,6 +1,5 @@
 package com.example;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -17,7 +16,6 @@ import java.util.List;
  * User: jurrestender
  * Date: 9/29/12
  * Time: 11:47 PM
- * To change this template use File | Settings | File Templates.
  */
 public class ScheduleListLoaderWorker implements Runnable {
     private Handler handler;
@@ -33,7 +31,7 @@ public class ScheduleListLoaderWorker implements Runnable {
 
         try {
             // load the JSON file with schedules
-            InputStream inputStream = SpeedSkatingApplication.getAppContext().getResources().openRawResource(R.raw.schedules);
+            InputStream inputStream = SpeedSkatingApplication.getAppContext().openFileInput("schedules.json");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder stringBuilder = new StringBuilder();
             String line;
@@ -42,18 +40,25 @@ public class ScheduleListLoaderWorker implements Runnable {
             }
             jsonRep = stringBuilder.toString();
         } catch (Throwable throwable) {
-            Log.v("LoadError", throwable.toString());
+            throwable.printStackTrace();
         }
 
         try {
-            JSONArray jsonArray = new JSONArray(jsonRep);
+            JSONArray jsonArray;
+            if (jsonRep == null) {
+               jsonArray = new JSONArray();
+            } else {
+               jsonArray = new JSONArray(jsonRep);
+            }
             List<LapData> lapDataList = new ArrayList<LapData>();
+
             // iterate over all schedule objects in the JSON array
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonSchedule = jsonArray.getJSONObject(i);
 
                 // get each schedule's LapData array and create LapData objects from all of them
-                JSONArray jsonLapDataArray = (JSONArray) jsonSchedule.get("lapData");
+                JSONArray jsonLapDataArray = jsonSchedule.getJSONArray("lapData");
+
                 for (int j = 0; j < jsonLapDataArray.length(); j++) {
                     JSONObject jsonLapData = jsonLapDataArray.getJSONObject(j);
                     String roundNumber = jsonLapData.get("roundNumber").toString();
@@ -72,6 +77,7 @@ public class ScheduleListLoaderWorker implements Runnable {
         }
         // once the list with schedules is complete send it to the activity
         Message message = new Message();
+        Log.v("ArrayList loaded = ", scheduleArrayList.toString());
         message.obj = scheduleArrayList;
         handler.sendMessage(message);
     }

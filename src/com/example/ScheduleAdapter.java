@@ -16,7 +16,6 @@ import android.widget.TextView;
  * User: jurrestender
  * Date: 9/21/12
  * Time: 11:23 AM
- * To change this template use File | Settings | File Templates.
  */
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private Context context;

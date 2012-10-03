@@ -13,7 +13,6 @@ import java.io.*;
  * User: jurrestender
  * Date: 9/29/12
  * Time: 3:31 PM
- * To change this template use File | Settings | File Templates.
  */
 
 public class ScheduleWriterWorker implements Runnable {
@@ -25,15 +24,23 @@ public class ScheduleWriterWorker implements Runnable {
 
         try {
             // load the JSON file with schedules
-            InputStream inputStream = SpeedSkatingApplication.getAppContext().getResources().openRawResource(R.raw.schedules);
+            InputStream inputStream = SpeedSkatingApplication.getAppContext().openFileInput("schedules.json");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-            jsonArray = new JSONArray(stringBuilder.toString());
-        } catch (IOException e) {
+            if (stringBuilder.length() != 0) {
+                jsonArray = new JSONArray(stringBuilder.toString());
+            }
+            inputStream.close();
+            bufferedReader.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+            jsonArray = new JSONArray();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -43,19 +50,24 @@ public class ScheduleWriterWorker implements Runnable {
 
     public void writeSchedule() {
         JSONObject scheduleObject = new JSONObject();
-        JSONObject lapDataObject = new JSONObject();
+        JSONArray lapDataArray = new JSONArray();
         for (LapData lapData : schedule.getLapData()) {
-            writeLapData(lapDataObject, lapData);
+            lapDataArray.put(getLapDataJSON(lapData));
         }
         try {
             scheduleObject.put("name", schedule.getName());
-            scheduleObject.put("lapData", lapDataObject);
-            Log.e("scheduleObject = ", scheduleObject.toString());
-            jsonArray.put(scheduleObject);
-            Log.e("Output stream = ", jsonArray.toString());
-            FileOutputStream fileOutputStream = SpeedSkatingApplication.getAppContext().openFileOutput("schedules.json", Context.MODE_APPEND);
-            fileOutputStream.write(jsonArray.toString().getBytes());
-            fileOutputStream.close();
+            scheduleObject.put("lapData", lapDataArray);
+            if (jsonArray == null) {
+                String s = scheduleObject.toString();
+                jsonArray = new JSONArray(s);
+            } else {
+                jsonArray.put(scheduleObject);
+            }
+            FileOutputStream fileOutputStream = SpeedSkatingApplication.getAppContext().openFileOutput("schedules.json", Context.MODE_PRIVATE);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.write(jsonArray.toString().toCharArray());
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,7 +80,8 @@ public class ScheduleWriterWorker implements Runnable {
 
     }
 
-    public void writeLapData(JSONObject jsonObject, LapData lapData) {
+    public JSONObject getLapDataJSON(LapData lapData) {
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("roundNumber", lapData.getRoundNumber());
             jsonObject.put("distance", lapData.getDistance());
@@ -77,6 +90,7 @@ public class ScheduleWriterWorker implements Runnable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return jsonObject;
     }
 
     @Override
