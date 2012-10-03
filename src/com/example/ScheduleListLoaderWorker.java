@@ -40,7 +40,7 @@ public class ScheduleListLoaderWorker implements Runnable {
             }
             jsonRep = stringBuilder.toString();
         } catch (Throwable throwable) {
-            Log.v("LoadError", throwable.toString());
+            throwable.printStackTrace();
         }
 
         try {

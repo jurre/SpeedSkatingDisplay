@@ -60,7 +60,6 @@ public class SchemeEntryActivity extends Activity {
         listview.setAdapter(adapter);
 
         final Button button = (Button) findViewById(R.id.button);
-        final Context context = this;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                     EditText schemeName = (EditText) findViewById(R.id.schemeName);

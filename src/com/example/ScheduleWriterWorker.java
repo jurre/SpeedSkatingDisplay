@@ -60,7 +60,6 @@ public class ScheduleWriterWorker implements Runnable {
             if (jsonArray == null) {
                 String s = scheduleObject.toString();
                 jsonArray = new JSONArray(s);
-                Log.v("jarray", "lol");
             } else {
                 jsonArray.put(scheduleObject);
             }
