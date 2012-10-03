@@ -120,7 +120,6 @@ public class DataHandlerWorker implements Runnable {
                 String input;
                 while ((input = reader.readLine()) != null) {
                     worker.setLapdata(new LapData(input));
-                    System.out.println("MySkaterLine received");
                     if (useSchedule) {
                         lapdata.setTotalDifference(schedule.getRound(Integer.parseInt(lapdata.getRoundNumber())));
                     }
@@ -153,9 +152,9 @@ public class DataHandlerWorker implements Runnable {
                 while ((input = reader.readLine()) != null) {
                     LapData tempLapData = new LapData(input);
                     System.out.println("OpponentLine received");
-                    while(!lapdata.getRoundNumber().equals(tempLapData.getRoundNumber()))
+                    while(Integer.parseInt(lapdata.getRoundNumber())>=Integer.parseInt(tempLapData.getRoundNumber()))
                     {
-                        System.out.println("not samenumber");
+                        //wait for myskater to send its lap before calculating the difference.
                     }
                     if (worker.getLapData() != null) {
                         worker.getLapData().setTotalDifference(tempLapData);
