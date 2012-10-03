@@ -173,5 +173,20 @@ public class LapData {
         return prefix + minutes + ":" + seconds + "." + milliseconds;
     }
 
+    public boolean isEqual(LapData comparableLapdata) {
+        if(comparableLapdata==null) {
+            return false;
+        }
+        if(this.getDistance().equals(comparableLapdata.getDistance()) &&
+                this.getLapTime().equals(comparableLapdata.getLapTime()) &&
+                this.getRoundNumber().equals(comparableLapdata.getRoundNumber()) &&
+                this.getTotalTime().equals(comparableLapdata.getTotalTime())){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 }
