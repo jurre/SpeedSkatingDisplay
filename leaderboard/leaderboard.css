@@ -10,8 +10,8 @@ body {
     user-select: none;
 }
 
-#outer {
-    width: 960px;
+.outer {
+    padding: 0px 50px 0px 50px;
     margin: 0 auto;    
 }
 
@@ -33,15 +33,16 @@ body {
 }
 
 .player.selected {
-    background-color: #378073;
+    background-color: #3A87AD;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     margin-left: -28px;
-    padding-left: 28px;
+    padding-left: 32px;
+    color: #ddd;
 }
 
 .player.selected .total-time {
-    color: black;
+    color: #ddd;
 }
 
 .details, .none {
@@ -54,10 +55,6 @@ body {
 
 .none {
     color: #777;
-}
-
-.inc {
-  cursor: pointer;
 }
 
 .leaderboard { 
@@ -75,5 +72,9 @@ body {
 .total-time {
     color: #555;
     float: right;
-    margin-top: -18px;
+    margin-top: -19px;
+}
+
+.label {
+    margin-left: 5px;
 }

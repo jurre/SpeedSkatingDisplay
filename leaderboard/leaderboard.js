@@ -5,7 +5,7 @@ Players = new Meteor.Collection("players");
 
 if (Meteor.isClient) {
   Template.leaderboard.players = function () {
-    return Players.find({}, {sort: [["total_time_in_milliseconds", "asc"], ["name", "asc"]]});
+    return Players.find({}, { sort: [["total_time_in_milliseconds", "asc"]] } );
   };
 
   Template.leaderboard.selected_name = function () {
@@ -16,13 +16,6 @@ if (Meteor.isClient) {
   Template.player.selected = function () {
     return Session.equals("selected_player", this._id) ? "selected" : '';
   };
-
-  Template.leaderboard.events({
-    'click input.inc': function () {
-      Players.remove()
-      Players.update(Session.get("selected_player"), {$inc: {total_time: 5}});
-    }
-  });
 
   Template.player.events({
     'click': function () {

@@ -1,5 +1,6 @@
 require 'socket'               # Get sockets from stdlib
 require 'csv'
+require 'mongo'
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -17,11 +18,11 @@ end
 
 def send_lap_data(clients, csv_filename)
   count = 0
-  name = ""
+  name, lap_data = "", ""
   CSV.foreach(csv_filename) do |row|
     name = row.to_s.split(';')[1] if count == 0
     unless count < 2
-      sleep row.to_s.split(';')[3].to_f / 5
+      sleep row.to_s.split(';')[3].to_f / 100
       @last_message = row.join
       puts row.join + "for player #{name}"
       clients.each do |client| 
@@ -29,7 +30,23 @@ def send_lap_data(clients, csv_filename)
       end
     end
     count += 1
+    lap_data = row
   end
+  row = lap_data.to_s.split(';')
+  total_time = row[2]
+  time_in_milliseconds = time_to_milliseconds(total_time)
+  document = {"name" => format_name(name), "total_time" => total_time, "total_time_in_milliseconds" => time_in_milliseconds }
+  @collection.insert(document)
+end
+
+def format_name(name)
+  name.split(".").each { |n| n.capitalize! }.join(". ")
+end
+
+def time_to_milliseconds(total_time)
+  minutes = total_time.split(':')[0].to_i
+  seconds = total_time.split(':')[1].to_f
+  (minutes * 60 * 1000 + seconds * 1000).to_i
 end
 
 def accept_connections(clients_array, server)
@@ -48,6 +65,11 @@ def close_connections
   (@player_clients + @opponent_clients).each { |client| client.close }
   puts "disconnected all clients"
 end
+
+# mongodb connection
+connection = Mongo::Connection.new("127.0.0.1", 2502)
+db = connection.db("meteor")
+@collection = db.collection("players")
 
 
 @player_server = TCPServer.open(2000)
