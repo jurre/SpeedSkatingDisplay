@@ -2,6 +2,7 @@
 // it is backed by a MongoDB collection named "players."
 
 Players = new Meteor.Collection("players");
+CurrentLapData = new Meteor.Collection("currentLapData");
 
 if (Meteor.isClient) {
   Template.leaderboard.players = function () {
@@ -22,6 +23,16 @@ if (Meteor.isClient) {
       Session.set("selected_player", this._id);
     }
   });
+
+  Template.current_match.current_lap_data = function () {
+    return CurrentLapData.find({}, { sort: [["name", "asc"]] });
+  };
+
+  Template.current_match.current_lap_data = function () {
+    CurrentLapData.find({}, {  })
+
+    return
+  };
 }
 
 String.prototype.to_milliseconds = function() {
@@ -54,7 +65,12 @@ if (Meteor.isServer) {
                         "14:02.54",
                         "14:10.24"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], total_time: total_times[i], total_time_in_milliseconds: total_times[i].to_milliseconds()});
+        Players.insert({ name: names[i], total_time: total_times[i], total_time_in_milliseconds: total_times[i].to_milliseconds() });
     }
+
+    if (CurrentLapData.find({}).count() === 0) {
+      CurrentLapData.insert({ name: "S. Kramer", round: "1", lap_time: "33.5", total_time: "0:33.5", difference: "+0.4" });
+      CurrentLapData.insert({ name: "I. Skobrev", round: "1", lap_time: "31.5", total_time: "0:31.5", difference: "" });
+    };
   });
 }

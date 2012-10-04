@@ -24,22 +24,27 @@ def send_lap_data(clients, csv_filename, initial_direction)
   direction = initial_direction
   CSV.foreach(csv_filename) do |row|
     row = row[0] + ";#{direction}"
-    name = row.to_s.split(';')[1] if count == 0
+    name = format_name(row.split(';')[1]) if count == 0
+    round = row.split(';')[0]
+    lap_time = row.split(';')[3]
+    total_time = row.split(';')[2]
     unless count < 2
-      sleep row.to_s.split(';')[3].to_f / 5
+      sleep row.split(';')[3].to_f / 2
       @last_message = row
       puts row + " for player #{name}"
       clients.each { |client| send_data(client, row) }
+      doc = { "name" => name, "round" => round, "lap_time" => lap_time, "total_time" => total_time}
+      @current_lap_data.update({ "name" => "#{name}" }, doc)
     end
     count += 1
     direction = (direction == 'l') ? 'r' : 'l'
     lap_data = row
   end
-  row = lap_data.to_s.split(';')
+  row = lap_data.split(';')
   total_time = row[2]
   time_in_milliseconds = time_to_milliseconds(total_time)
-  document = {"name" => format_name(name), "total_time" => total_time, "total_time_in_milliseconds" => time_in_milliseconds }
-  @collection.insert(document)
+  document = {"name" => name, "total_time" => total_time, "total_time_in_milliseconds" => time_in_milliseconds }
+  @players.insert(document)
 end
 
 def send_data(client, row)
@@ -77,7 +82,9 @@ end
 # mongodb connection
 connection = Mongo::Connection.new("127.0.0.1", 2502)
 db = connection.db("meteor")
-@collection = db.collection("players")
+@players = db.collection("players")
+@current_lap_data = db.collection("currentLapData")
+
 
 
 @player_server = TCPServer.open(2000)
