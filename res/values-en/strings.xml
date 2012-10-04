@@ -18,5 +18,25 @@
     <string name="title_activity_skater_over_view">SkaterOverView</string>
     <string name="menu_selectall">Schema</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
-
+	<string name="menu_change">Change view</string>
+    <string name="textLeftUpChange">Left upper</string>
+    <string name="textLeftBottomChange">Left bottom</string>
+    <string name="textRightBottomChange">Right bottom</string>
+    <string name="totalDifferenceLabel">Total difference</string>
+    <string name="roundDifferenceLabel">Round difference</string>
+    <string name="totalTimeLabel">Total time</string>
+    <string name="roundTimeLabel">Round time</string>
+    <string name="roundNumberLabel">Distance</string>
+    <string name="distanceLabel">Afstand</string>
+    <string name="laneLabel">Lane</string>  	
+	<string-array name="viewItems">
+        <item>Total difference</item>
+        <item>Round difference</item>
+        <item>Total time</item>
+        <item>Round time</item>
+        <item>Roundnumber</item>
+        <item>Distance</item>
+        <item>Lane</item>       
+    </string-array>
+    
 </resources>

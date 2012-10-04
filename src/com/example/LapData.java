@@ -1,7 +1,5 @@
 package com.example;
 
-import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +22,8 @@ public class LapData {
     private String lapDifference = "";
     private String totalDifference = "";
     private String roundNumber = "";
-
+    private String lane = "";
+    
     private boolean directionRight;
 
     public LapData(String roundNumber, String totalTime, String lapTime, String distance) {
@@ -40,6 +39,7 @@ public class LapData {
         this.distance = parsedData[1];
         this.totalTime = parsedData[2];
         this.lapTime = parsedData[3];
+        this.lane = parsedData[4];
     }
 
     public String getDistance() {
@@ -48,6 +48,10 @@ public class LapData {
 
     public String getTotalTime() {
         return totalTime;
+    }
+    
+    public String getLane() {
+    	return lane;
     }
 
     public String getLapTime() {

@@ -10,16 +10,16 @@
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher"
                  android:name=".SpeedSkatingApplication">
-        <activity android:name=".LapDataOverviewActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape">
+        <activity android:name=".ScheduleListActivity"
+                  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ScheduleListActivity"
-                  android:label="@string/app_name">
+        <activity android:name=".LapDataOverviewActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
