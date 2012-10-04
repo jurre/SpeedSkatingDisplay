@@ -30,7 +30,7 @@ def send_lap_data(clients, csv_filename, initial_direction)
     lap_time = row.split(';')[3]
     total_time = row.split(';')[2]
 
-    wait_time = row.to_s.split(';')[3].to_f / 5
+    wait_time = row.to_s.split(';')[3].to_f / 2
     unless count < 2
       sleep wait_time
       @last_message = row
@@ -114,6 +114,8 @@ loop do
     break if input.strip == 'start'
     close_connections if input.strip == 'close-connections'
   end
+
+  @current_lap_data.remove({})
 
   threads = [].tap do |thread|
     thread << Thread.start { send_lap_data(@player_clients, "KramerOlympics10000.csv", 'l') }
