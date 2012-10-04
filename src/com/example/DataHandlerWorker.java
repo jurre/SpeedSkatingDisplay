@@ -1,3 +1,4 @@
+
 package com.example;
 
 
@@ -170,6 +171,7 @@ public class DataHandlerWorker implements DataHandlerInterface {
                         if(worker.getLapData() != null) {
                             if(Integer.parseInt(worker.getLapData().getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())){
                                 worker.getLapData().setTotalDifference(tempLapData);
+                                worker.getLapData().setLapDifference(tempLapData);
                                 differenceCalculated = true;
                                 worker.sendData();
                             }

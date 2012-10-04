@@ -1,3 +1,4 @@
+
 package com.example;
 
 import java.text.DateFormat;
@@ -21,6 +22,7 @@ public class LapData {
     private String lapDifference = "";
     private String totalDifference = "";
     private String roundNumber = "";
+    private String lane = "";
 
     private boolean directionRight;
 
@@ -37,6 +39,7 @@ public class LapData {
         this.distance = parsedData[1];
         this.totalTime = parsedData[2];
         this.lapTime = parsedData[3];
+        this.lane = parsedData[4];
     }
 
     public String getDistance() {
@@ -57,6 +60,10 @@ public class LapData {
 
     public boolean getDirection() {
         return directionRight;
+    }
+
+    public String getLane() {
+        return lane;
     }
 
     public void setDirection(boolean direction) {
@@ -195,3 +202,4 @@ public class LapData {
 
 
 }
+

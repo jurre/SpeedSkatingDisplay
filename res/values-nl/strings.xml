@@ -18,5 +18,24 @@
     <string name="title_activity_skater_over_view">SchaatserOverzicht</string>
     <string name="menu_selectall">Schema</string>
     <string name="title_activity_schedule">RoosterActiviteit</string>
-
+	<string name="menu_change">Wijzig view</string>
+    <string name="textLeftUpChange">Linksboven</string>
+    <string name="textLeftBottomChange">Linksonder</string>
+    <string name="textRightBottomChange">Rechtsonder</string>
+    <string name="totalDifferenceLabel">Totaalverschil</string>
+    <string name="roundDifferenceLabel">Rondeverschil</string>
+    <string name="totalTimeLabel">Totaaltijd</string>
+    <string name="roundTimeLabel">Rondetijd</string>
+    <string name="roundNumberLabel">Rondenummer</string>
+    <string name="distanceLabel">Afstand</string>
+    <string name="laneLabel">Baan</string>  	
+	<string-array name="viewItems">
+        <item>Totaalverschil</item>
+        <item>Rondeverschil</item>
+        <item>Totaaltijd</item>
+        <item>Rondetijd</item>
+        <item>Rondenummer</item>
+        <item>Afstand</item>
+        <item>Baan</item>       
+    </string-array>
 </resources>
