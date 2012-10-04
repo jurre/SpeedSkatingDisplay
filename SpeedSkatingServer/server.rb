@@ -16,20 +16,23 @@ ensure
   Socket.do_not_reverse_lookup = orig
 end
 
-def send_lap_data(clients, csv_filename)
+
+# here be dragons
+def send_lap_data(clients, csv_filename, initial_direction)
   count = 0
   name, lap_data = "", ""
+  direction = initial_direction
   CSV.foreach(csv_filename) do |row|
+    row = row[0] + ";#{direction}"
     name = row.to_s.split(';')[1] if count == 0
     unless count < 2
-      sleep row.to_s.split(';')[3].to_f / 100
-      @last_message = row.join
-      puts row.join + "for player #{name}"
-      clients.each do |client| 
-        client.puts(row.join + "\n")
-      end
+      sleep row.to_s.split(';')[3].to_f / 5
+      @last_message = row
+      puts row + " for player #{name}"
+      clients.each { |client| send_data(client, row) }
     end
     count += 1
+    direction = (direction == 'l') ? 'r' : 'l'
     lap_data = row
   end
   row = lap_data.to_s.split(';')
@@ -37,6 +40,11 @@ def send_lap_data(clients, csv_filename)
   time_in_milliseconds = time_to_milliseconds(total_time)
   document = {"name" => format_name(name), "total_time" => total_time, "total_time_in_milliseconds" => time_in_milliseconds }
   @collection.insert(document)
+end
+
+def send_data(client, row)
+    client.puts(row + "\n") 
+  rescue Errno::EPIPE => error
 end
 
 def format_name(name)
@@ -74,15 +82,21 @@ db = connection.db("meteor")
 
 @player_server = TCPServer.open(2000)
 @opponent_server = TCPServer.open(3000)
-puts "server started \nlistening on #{local_ip} \ntype 'start' to start the match"
+puts "server started \nlistening on #{local_ip} \ntype 'start' to start the match "
 
 @last_message
 
 @player_clients = Array.new
 @opponent_clients = Array.new
 
+@disconnected_clients = Array.new
+
 # main loop
 loop do
+
+  # accept connections
+  accept_connections(@player_clients, @player_server)
+  accept_connections(@opponent_clients, @opponent_server)
 
   # wait untill the server is started
   while input = gets
@@ -90,12 +104,9 @@ loop do
     close_connections if input.strip == 'close-connections'
   end
 
-  accept_connections(@player_clients, @player_server)
-  accept_connections(@opponent_clients, @opponent_server)
-
   threads = [].tap do |thread|
-    thread << Thread.start { send_lap_data(@player_clients, "KramerOlympics10000.csv") }
-    thread << Thread.start { send_lap_data(@opponent_clients, "SkobrevOlympics10000.csv") }
+    thread << Thread.start { send_lap_data(@player_clients, "KramerOlympics10000.csv", 'l') }
+    thread << Thread.start { send_lap_data(@opponent_clients, "SkobrevOlympics10000.csv", 'r') }
   end
 
   threads.each { |thread| thread.join } # wait for all the data to be sent
