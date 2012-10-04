@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,7 +65,10 @@ public class LapDataOverviewActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.data_view, menu);
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = this.getMenuInflater();
+        menuInflater.inflate(R.menu.data_view, menu);
+        SharedMenu.onCreateOptionsMenu(menu, this);
         
         return true;
     }
@@ -75,7 +79,7 @@ public class LapDataOverviewActivity extends Activity {
             	popupChange();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return SharedMenu.onOptionsItemSelected(item, this);
         }
     }
 
