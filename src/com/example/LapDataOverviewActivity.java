@@ -87,6 +87,7 @@ public class LapDataOverviewActivity extends Activity {
 	private void popupChange() {
 		final Dialog dialog = new Dialog(context);
 		dialog.setContentView(R.layout.view_popup);
+		dialog.getWindow().setLayout(600,400);
 		dialog.setTitle(getString(R.string.menu_change));
 		leftUpSpinner = (Spinner) dialog.findViewById(R.id.leftUpSpinner);
 		leftBottomSpinner = (Spinner) dialog.findViewById(R.id.leftBottomSpinner);
