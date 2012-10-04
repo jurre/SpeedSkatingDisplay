@@ -74,7 +74,7 @@ db = connection.db("meteor")
 
 @player_server = TCPServer.open(2000)
 @opponent_server = TCPServer.open(3000)
-puts "server started \nlistening on #{local_ip}"
+puts "server started \nlistening on #{local_ip} \ntype 'start' to start the match"
 
 @last_message
 
