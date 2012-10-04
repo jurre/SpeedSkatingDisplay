@@ -63,6 +63,7 @@ def accept_connections(clients_array, server)
       Thread.start(server.accept) do |client|
         puts "client connected"
         client.puts @last_message unless @last_message.nil? # send the last lapdata as soon as the client connects
+        client.puts @last_message unless @last_message.nil? # send the last lapData as soon as the client connects
         clients_array << client
       end
     end

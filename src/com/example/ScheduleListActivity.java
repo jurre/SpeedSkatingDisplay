@@ -66,7 +66,12 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
     // to compare against
     @Override
     public void onClick(View v) {
-        application.setSchedule(scheduleArrayList.get((Integer) v.getTag()));
+        if((Integer) v.getTag() == 0) {
+            application.setSchedule(null);
+        }
+        else {
+            application.setSchedule(scheduleArrayList.get((Integer) v.getTag()));
+        }
         startActivity(new Intent(ScheduleListActivity.this, LapDataOverviewActivity.class));
     }
 

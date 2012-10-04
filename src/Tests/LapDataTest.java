@@ -18,15 +18,15 @@ public class LapDataTest {
     @Test
     public void ParseTimeStringTest() {
 
-        assertEquals("-00:00.123", LapData.parseTimeString("-123"));
-        assertEquals("00:20.567", LapData.parseTimeString("20.567"));
+        assertEquals("-00:00.120", LapData.parseTimeString("-12"));
+        assertEquals("00:20.560", LapData.parseTimeString("20.56"));
         assertEquals("14:09.210", LapData.parseTimeString("14:09.21"));
         assertEquals("00:09.100", LapData.parseTimeString("9.1"));
     }
 
     @Test
     public void LapDataCreateTest() {
-        String lap1 = "800m;1:06.22;32.2";
+        String lap1 = "1;800m;1:06.22;32.2";
 
         LapData data1 = new LapData(lap1);
 
@@ -37,8 +37,8 @@ public class LapDataTest {
 
     @Test
     public void LapDataDifferenceTest() {
-        String lap1 = "800m;1:06.22;32.0";
-        String lap2 = "800m;1:08.50;31.500";
+        String lap1 = "1;800m;1:06.22;32.0";
+        String lap2 = "1;800m;1:08.50;31.50";
 
         LapData l1 = new LapData(lap1);
         LapData l2 = new LapData(lap2);
@@ -48,10 +48,10 @@ public class LapDataTest {
         l1.setLapDifference(l2);
         l1.setTotalDifference(l2);
 
-        assertEquals(l2.getLapDifference(), "-500");
-        assertEquals("2.280", l2.getTotalDifference());
-        assertEquals(l1.getLapDifference(), "500");
-        assertEquals(l1.getTotalDifference(), "-2.280");
+        assertEquals(l2.getLapDifference(), "-0.50");
+        assertEquals("2.28", l2.getTotalDifference());
+        assertEquals(l1.getLapDifference(), "0.50");
+        assertEquals(l1.getTotalDifference(), "-2.28");
     }
 
 }

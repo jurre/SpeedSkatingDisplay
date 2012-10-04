@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Time: 11:54 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MockDataHandlerWorker implements Runnable, DataHandlerInterface {
+public class MockDataHandlerWorker implements DataHandlerInterface {
 
     private Handler handler;
     private Schedule schedule;

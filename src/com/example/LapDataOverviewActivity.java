@@ -56,7 +56,12 @@ public class LapDataOverviewActivity extends Activity {
         application = (SpeedSkatingApplication) getApplication();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lap_data);
-        setTitle("Schema: " + application.getSchedule().getName());
+        if(application.getSchedule() !=null) {
+            setTitle("Schema: " + application.getSchedule().getName());
+        }
+        else {
+            setTitle("Against direct opponent");
+        }
         distanceView = (TextView) findViewById(R.id.distance);
         roundNumberView = (TextView) findViewById(R.id.roundNumber);
         lapTimeView = (TextView) findViewById(R.id.lapTime);
@@ -67,7 +72,7 @@ public class LapDataOverviewActivity extends Activity {
 
     protected void onStart() {
         super.onStart();
-        new Thread(new MockDataHandlerWorker(handler, application.getSchedule())).start();
+        new DataHandlerWorker(handler, application.getSchedule());
     }
 
     @Override

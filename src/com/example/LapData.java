@@ -64,11 +64,11 @@ public class LapData {
     }
 
     public String getLapDifference() {
-        return lapDifference;
+        return lapDifference.substring(0, lapDifference.length()-1);
     }
 
     public String getTotalDifference() {
-        return totalDifference;
+        return totalDifference.substring(0,totalDifference.length()-1);
     }
 
     public void setLapTime(String lapTime) {
@@ -89,9 +89,11 @@ public class LapData {
 
     public String getTimeDifference(String time1, String time2) {
         Long difference = 0L;
+        Date d1;
+        Date d2;
         try {
-            Date d1 = formatter.parse(parseTimeString(time1));
-            Date d2 = formatter.parse(parseTimeString(time2));
+            d1 = formatter.parse(parseTimeString(time1));
+            d2 = formatter.parse(parseTimeString(time2));
             difference = d1.getTime() - d2.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -121,7 +123,7 @@ public class LapData {
                     TimeUnit.MILLISECONDS.toMillis(m) - TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(m))
             );
         } else {
-            return prefix + Long.toString(m);
+            return prefix + "0."+Long.toString(m);
         }
 
 
@@ -136,7 +138,7 @@ public class LapData {
 
         String minutes = "00";
         String seconds = "00";
-        String milliseconds = "00";
+        String milliseconds = "000";
         String[] split = time.split(":");
         if (split.length == 2) {
             minutes = split[0];
@@ -162,11 +164,11 @@ public class LapData {
         }
 
         if (milliseconds.length() == 1) {
-            milliseconds += "0";
+            milliseconds += "00";
         }
 
-        if(milliseconds.length()> 2) {
-            milliseconds = milliseconds.substring(0,2);
+        if(milliseconds.length() == 2) {
+            milliseconds += "0";
         }
 
         return prefix + minutes + ":" + seconds + "." + milliseconds;
@@ -185,6 +187,10 @@ public class LapData {
         else {
             return false;
         }
+    }
+
+    public void setHardTotalDifference(String difference) {
+        this.totalDifference = difference;
     }
 
 
