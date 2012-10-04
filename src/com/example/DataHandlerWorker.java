@@ -15,7 +15,7 @@ import java.net.Socket;
  * Date: 9/14/12
  * Time: 12:37 PM
  */
-public class DataHandlerWorker implements Runnable {
+public class DataHandlerWorker {
     private Handler handler;
     private Schedule schedule;
     private LapData lapData;
@@ -24,6 +24,7 @@ public class DataHandlerWorker implements Runnable {
     private String serverIp;
     private int portMySkater;
     private int portOpponentSkater;
+    private boolean running = true;
 
 
     public DataHandlerWorker(Handler handler, Schedule schedule, String serverIp, int portMySkater, int portOpponentSkater) {
@@ -40,6 +41,20 @@ public class DataHandlerWorker implements Runnable {
         }
         initDataRetrievers();
     }
+    public DataHandlerWorker(Handler handler, Schedule schedule) {
+        if (handler != null) {
+            this.handler = handler;
+        }
+        this.serverIp = "145.37.58.131";
+        this.portMySkater = 2000;
+        this.portOpponentSkater = 3000;
+        if (schedule != null) {
+            this.schedule = schedule;
+        } else {
+            useSchedule = false;
+        }
+        initDataRetrievers();
+    }
 
     public synchronized void setLapData(LapData lapData) {
         this.lapData = lapData;
@@ -47,20 +62,17 @@ public class DataHandlerWorker implements Runnable {
 
     public void initDataRetrievers() {
         try {
-            Socket socketMySkater = new Socket(serverIp, portMySkater);
-
-            MySkaterDataRetriever mySkaterDataRetriever = new MySkaterDataRetriever(socketMySkater, this);
+            MySkaterDataRetriever mySkaterDataRetriever = new MySkaterDataRetriever(this, serverIp, portMySkater);
             new Thread(mySkaterDataRetriever).start();
 
 
             if (!useSchedule) {
-                Socket socketOpponent = new Socket(serverIp, portOpponentSkater);
-                OpponentSkaterDataRetriever opponentSkaterDataRetriever = new OpponentSkaterDataRetriever(socketOpponent, this);
+                OpponentSkaterDataRetriever opponentSkaterDataRetriever = new OpponentSkaterDataRetriever(this, serverIp, portOpponentSkater);
                 new Thread(opponentSkaterDataRetriever).start();
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -72,54 +84,36 @@ public class DataHandlerWorker implements Runnable {
         this.lastLapData = lapData;
     }
 
-    public DataHandlerWorker(Handler handler, Schedule schedule) {
-        if (handler != null) {
-            this.handler = handler;
+    public void sendData() {
+        if (handler !=null) {
+            Message message = new Message();
+            message.obj = lapData;
+
+            handler.sendMessage(message);
         }
-        this.serverIp = "localhost";
-        this.portMySkater = 2000;
-        this.portOpponentSkater = 3000;
-        if (schedule != null) {
-            this.schedule = schedule;
-        } else {
-            useSchedule = false;
-        }
-        initDataRetrievers();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            if (!lapData.isEqual(lastLapData)) {
-                Message message = new Message();
-                message.obj = lapData;
-                if (handler != null) {
-                    if(lapData.getTotalDifference().equals("")) {
-                        lapData.setHardTotalDifference(lastLapData.getTotalDifference());
-                    }
-                    handler.sendMessage(message);
-                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    //
-                }
-            }
-        }
-    }
 
 
     private class MySkaterDataRetriever implements Runnable {
         Socket socket;
         DataHandlerWorker worker;
+        String ip;
+        int port;
 
-        public MySkaterDataRetriever(Socket socket, DataHandlerWorker worker) {
-            this.socket = socket;
+        public MySkaterDataRetriever(DataHandlerWorker worker, String ip, int port) {
+            this.ip = ip;
+            this.port = port;
             this.worker = worker;
         }
 
         @Override
         public void run() {
+            try {
+                this.socket = new Socket(ip, port);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println("Thread started");
 
             try {
@@ -132,6 +126,7 @@ public class DataHandlerWorker implements Runnable {
                     worker.setLapData(new LapData(input));
                     if (useSchedule) {
                         lapData.setTotalDifference(schedule.getRound(Integer.parseInt(lapData.getRoundNumber())));
+                        worker.sendData();
                     }
                 }
             } catch (IOException e) {
@@ -147,15 +142,23 @@ public class DataHandlerWorker implements Runnable {
     private class OpponentSkaterDataRetriever implements Runnable {
         Socket socket;
         DataHandlerWorker worker;
+        String ip;
+        int port;
 
-        public OpponentSkaterDataRetriever(Socket socket, DataHandlerWorker worker) {
-            this.socket = socket;
+        public OpponentSkaterDataRetriever(DataHandlerWorker worker, String ip, int port) {
+            this.ip = ip;
+            this.port = port;
             this.worker = worker;
         }
 
         @Override
         public void run() {
             System.out.println("Thread started");
+            try {
+                this.socket = new Socket(ip, port);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String input;
@@ -168,6 +171,7 @@ public class DataHandlerWorker implements Runnable {
                             if(Integer.parseInt(worker.getLapData().getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())){
                                 worker.getLapData().setTotalDifference(tempLapData);
                                 differenceCalculated = true;
+                                worker.sendData();
                             }
                             else {
                                 System.out.println("WAITING");

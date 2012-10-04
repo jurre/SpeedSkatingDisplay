@@ -51,7 +51,7 @@ public class ScheduleListLoaderWorker implements Runnable {
                jsonArray = new JSONArray(jsonRep);
             }
             List<LapData> lapDataList = new ArrayList<LapData>();
-
+            scheduleArrayList.add(new Schedule(null, "Current opponent"));
             // iterate over all schedule objects in the JSON array
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonSchedule = jsonArray.getJSONObject(i);

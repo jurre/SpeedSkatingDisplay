@@ -66,7 +66,7 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
     // to compare against
     @Override
     public void onClick(View v) {
-        if((Integer) v.getTag() == -1) {
+        if((Integer) v.getTag() == 0) {
             application.setSchedule(null);
         }
         else {
