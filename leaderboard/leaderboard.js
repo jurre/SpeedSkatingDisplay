@@ -28,11 +28,6 @@ if (Meteor.isClient) {
     return CurrentLapData.find({}, { sort: [["name", "asc"]] });
   };
 
-  Template.current_match.current_lap_data = function () {
-    CurrentLapData.find({}, {  })
-
-    return
-  };
 }
 
 String.prototype.to_milliseconds = function() {

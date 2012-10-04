@@ -79,6 +79,7 @@ public class ScheduleListActivity extends Activity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         SharedMenu.onCreateOptionsMenu(menu, this);
+
         return true;
     }
 
