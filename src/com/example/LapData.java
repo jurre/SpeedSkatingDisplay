@@ -187,5 +187,9 @@ public class LapData {
         }
     }
 
+    public void setHardTotalDifference(String difference) {
+        this.totalDifference = difference;
+    }
+
 
 }

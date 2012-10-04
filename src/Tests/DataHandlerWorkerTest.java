@@ -39,7 +39,6 @@ public class DataHandlerWorkerTest {
             LapData lapdata = worker.getLapData();
             if (lapdata!=null) {
 
-                System.out.println("not null");
                 System.out.println(lapdata.getRoundNumber()+" : "+lapdata.getLapTime() + " : " + lapdata.getTotalTime() + " : " + lapdata.getTotalDifference());
                 lastLapData = lapdata;
             }

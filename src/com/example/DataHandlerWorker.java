@@ -14,7 +14,6 @@ import java.net.Socket;
  * User: jurrestender
  * Date: 9/14/12
  * Time: 12:37 PM
- * To change this template use File | Settings | File Templates.
  */
 public class DataHandlerWorker implements Runnable {
     private Handler handler;
@@ -69,6 +68,10 @@ public class DataHandlerWorker implements Runnable {
         return lapData;
     }
 
+    public void setLastLapdata(LapData lapData) {
+        this.lastLapData = lapData;
+    }
+
     public DataHandlerWorker(Handler handler, Schedule schedule) {
         if (handler != null) {
             this.handler = handler;
@@ -91,6 +94,9 @@ public class DataHandlerWorker implements Runnable {
                 Message message = new Message();
                 message.obj = lapData;
                 if (handler != null) {
+                    if(lapData.getTotalDifference().equals("")) {
+                        lapData.setHardTotalDifference(lastLapData.getTotalDifference());
+                    }
                     handler.sendMessage(message);
                 }
                 try {
@@ -120,6 +126,9 @@ public class DataHandlerWorker implements Runnable {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String input;
                 while ((input = reader.readLine()) != null) {
+                    if(worker.getLapData()!=null) {
+                        worker.setLastLapdata(worker.getLapData());
+                    }
                     worker.setLapData(new LapData(input));
                     if (useSchedule) {
                         lapData.setTotalDifference(schedule.getRound(Integer.parseInt(lapData.getRoundNumber())));
@@ -152,9 +161,23 @@ public class DataHandlerWorker implements Runnable {
                 String input;
                 while ((input = reader.readLine()) != null) {
                     LapData tempLapData = new LapData(input);
+                    boolean differenceCalculated =false;
                     System.out.println("OpponentLine received");
-                    while (Integer.parseInt(lapData.getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())) {
-                        //wait for myskater to send its lap before calculating the difference.
+                    while(differenceCalculated==false) {
+                        if(worker.getLapData() != null) {
+                            if(Integer.parseInt(worker.getLapData().getRoundNumber()) >= Integer.parseInt(tempLapData.getRoundNumber())){
+                                worker.getLapData().setTotalDifference(tempLapData);
+                                differenceCalculated = true;
+                            }
+                            else {
+                                System.out.println("WAITING");
+                                try {
+                                    Thread.sleep(1000);
+                                } catch(InterruptedException e) {
+
+                                }
+                            }
+                        }
                     }
                     if (worker.getLapData() != null) {
                         worker.getLapData().setTotalDifference(tempLapData);
