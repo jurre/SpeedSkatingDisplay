@@ -34,7 +34,12 @@ String.prototype.to_milliseconds = function() {
 // On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    
+
+  // Revoke clients rights to insert update or remove
+  Meteor.default_server.method_handlers['/players/insert'] = function () {};
+  Meteor.default_server.method_handlers['/players/update'] = function () {};
+  Meteor.default_server.method_handlers['/players/remove'] = function () {};
+
     if (Players.find().count() === 0) {
       var names = ["Sven Kramer",
                    "Carl Verheijen",
