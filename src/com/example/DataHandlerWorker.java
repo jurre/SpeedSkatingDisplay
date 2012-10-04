@@ -16,7 +16,7 @@ import java.net.Socket;
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DataHandlerWorker implements Runnable {
+public class DataHandlerWorker implements Runnable, DataHandlerInterface {
     private Handler handler;
     private Schedule schedule;
 

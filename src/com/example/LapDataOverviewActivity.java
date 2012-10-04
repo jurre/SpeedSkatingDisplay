@@ -67,7 +67,7 @@ public class LapDataOverviewActivity extends Activity {
 
     protected void onStart() {
         super.onStart();
-        new Thread(new DataHandlerWorker(handler, application.getSchedule())).start();
+        new Thread(new MockDataHandlerWorker(handler, application.getSchedule())).start();
     }
 
     @Override
