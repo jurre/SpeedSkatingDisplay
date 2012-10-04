@@ -22,19 +22,24 @@ def send_lap_data(clients, csv_filename, initial_direction)
   count = 0
   name, lap_data = "", ""
   direction = initial_direction
+
   CSV.foreach(csv_filename) do |row|
     row = row[0] + ";#{direction}"
+    wait_time = row.to_s.split(';')[3].to_f / 5
     name = row.to_s.split(';')[1] if count == 0
+
     unless count < 2
-      sleep row.to_s.split(';')[3].to_f / 5
+      sleep wait_time
       @last_message = row
       puts row + " for player #{name}"
       clients.each { |client| send_data(client, row) }
     end
+    
     count += 1
     direction = (direction == 'l') ? 'r' : 'l'
     lap_data = row
   end
+
   row = lap_data.to_s.split(';')
   total_time = row[2]
   time_in_milliseconds = time_to_milliseconds(total_time)
