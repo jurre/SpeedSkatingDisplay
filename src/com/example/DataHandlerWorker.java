@@ -46,7 +46,7 @@ public class DataHandlerWorker implements DataHandlerInterface {
         if (handler != null) {
             this.handler = handler;
         }
-        this.serverIp = "145.37.58.131";
+        this.serverIp = "145.37.58.118";
         this.portMySkater = 2000;
         this.portOpponentSkater = 3000;
         if (schedule != null) {

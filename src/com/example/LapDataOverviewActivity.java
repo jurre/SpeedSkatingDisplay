@@ -57,6 +57,11 @@ public class LapDataOverviewActivity extends Activity {
     	leftUpImage = (ImageView) findViewById(R.id.leftUpImage);
     	leftBottomImage = (ImageView) findViewById(R.id.leftBottomImage);
     	rightBottomImage = (ImageView) findViewById(R.id.rightBottomImage);
+        if (application.getSchedule() == null ) {
+            this.setTitle("Schema: huidige tegenstander");
+        } else {
+            this.setTitle("Schema: " + application.getSchedule().getName());
+        }
     	viewItems = new ArrayList<String>();
     	viewItems.add(getString(R.string.laneLabel));
     	viewItems.add(getString(R.string.totalTimeLabel));

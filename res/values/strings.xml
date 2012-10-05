@@ -29,6 +29,8 @@
     <string name="textLeftUpChange">Linksboven</string>
     <string name="textLeftBottomChange">Linksonder</string>
     <string name="textRightBottomChange">Rechtsonder</string>
+    <string name="opponent">Schema: </string>
+    <string name="currentOpponent">Huidige tegenstander</string>
 	<string-array name="viewItems">
         <item>Totaalverschil</item>
         <item>Rondeverschil</item>

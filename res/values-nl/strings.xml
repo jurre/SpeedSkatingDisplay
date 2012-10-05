@@ -28,7 +28,9 @@
     <string name="roundTimeLabel">Rondetijd</string>
     <string name="roundNumberLabel">Rondenummer</string>
     <string name="distanceLabel">Afstand</string>
-    <string name="laneLabel">Baan</string>  	
+    <string name="laneLabel">Baan</string>
+    <string name="opponent">Schema: </string>
+    <string name="currentOpponent">Huidige tegenstander</string>
 	<string-array name="viewItems">
         <item>Totaalverschil</item>
         <item>Rondeverschil</item>

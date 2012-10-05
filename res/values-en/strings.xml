@@ -28,7 +28,9 @@
     <string name="roundTimeLabel">Round time</string>
     <string name="roundNumberLabel">Distance</string>
     <string name="distanceLabel">Afstand</string>
-    <string name="laneLabel">Lane</string>  	
+    <string name="laneLabel">Lane</string>
+    <string name="opponent">Schedule: </string>
+    <string name="currentOpponent">Current opponent</string>
 	<string-array name="viewItems">
         <item>Total difference</item>
         <item>Round difference</item>
